@@ -19,7 +19,7 @@ Bambu is based within R, a tool often used for different types of analysis. The 
 R works from the current directory that you start R from. Meaning that it will have access to the data within the folder and will write to the folder if we create any files.
 
 ``` bash
-/library/training/LRT/R-4.6.0/bin/R
+/library/training/LRT_Tool/R-4.6.0/bin/R
 ``` 
 
 To be able to run commands for Bambu, the package needs to be installed within R. Packages are generally straight forward to install.

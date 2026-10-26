@@ -13,7 +13,7 @@ For the quality control and model organism data, we will use Nanopore data and P
 The following commands will copy the data into your home if you are on the bifxcore server.
 
 ``` bash
-cp -R /library/training/LRT/ ./
+cp -R /library/training/LRT ./
 ```
 
 Or if you are working on another computer or server.
