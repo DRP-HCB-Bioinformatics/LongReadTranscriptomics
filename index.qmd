@@ -1,0 +1,14 @@
+---
+title: "Long Read Transcriptomics"
+---
+
+Welcome to the Long Read Transcriptomics day taught by the Bioinformatics core at the [Discovery Research Platform for Hidden Cell Biology](https://biology.ed.ac.uk/drp), today we will go over several different essential topics when it comes to using long read transcriptomics data.
+
+During this course you will learn to:
+
+-   QC long read transcriptomics data
+-   Map long reads reads versus a reference genome
+-   Identification of new genes and isoforms
+-   Quantification of genes and isoforms
+
+If you have any questions please contact Heleen de Weerd, Daniel Robertson or Shaun Webb.

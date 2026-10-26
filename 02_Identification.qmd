@@ -1,0 +1,136 @@
+---
+title: "Long Read Transcriptomics"
+---
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+Identifying novel transcripts is an important step in transcriptome analysis, particularly for non-model organisms. Several tools ([IsoQuant](https://ablab.github.io/IsoQuant/) and [TALON](https://github.com/mortazavilab/TALON)) are available to identify transcripts that are not present in existing annotations. A comparative study cited in the references evaluates the performance of different tools and provides recommendations on their suitability for different applications. Among the tools assessed, [FLAIR](https://flair.readthedocs.io/en/latest/modules.html) performs well across a broad range of applications, making it a useful choice for both model and non-model organisms. Therefore, in this training, we will use FLAIR to identify novel transcripts.
+
+## FLAIR
+
+To be able to annotate transcripts, mapped reads in the form of a bam files are needed. FLAIR is one of the few tools that can evaluate on a per sample basis and then merge the results. This is especially useful if computational resources are limited or samples are added after the initial analysis.
+
+\
+For the moment, we will use pacbio data to go through the steps. The steps will be exactly the same for nanopore data.
+
+### Sample Transcript Identification
+
+Before we start, the bam file needs to be indexed.
+
+``` bash         
+samtools index H146_nanopore.chromosome2.bam
+```
+
+This will generate an index file for the bam file. The index file is used by different tools to be able to access data within the bam file more easily. Once the index file has been generated, the identification can be done.
+
+``` bash        
+flair transcriptome -g GCF_000001405.40_GRCh38.p14_genomic.fna -f GCF_000001405.40_GRCh38.p14_genomic.gtf -t 10 -b H146_pacbio.chromosome2.bam -o H146_pacbio.chromosome2
+```
+
+***Note**: This will take about 5 minutes*
+
+Take a look at the files generated. Several files are generated, in this case the most important ones are the ones ending in `.bed`, `.fa` and `read.map.txt`.
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+Take a look at the bed file. How many annotations within the file? How many of these are new?
+
+Hint: New annotation with the ID of the sample will be new, in this case the ID is `SRR30947496`.
+
+<details>
+
+<summary>Solution</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+First to check the number of annotations in the file, we can use `wc`
+
+```         
+wc -l H146_pacbio.chromosome2.isoforms.bed
+```
+
+To check which annotations are new, aka contain the `SRR30947496` label, we can use `grep`
+
+```         
+grep "SRR30947496" H146_pacbio.chromosome2.isoforms.bed | wc -l
+```
+:::
+
+</details>
+::::
+
+\
+
+A large number of new transcripts have been generated. These are sample specific, lets look at what happens if we merge results from multiple samples.
+
+### Merge Transcripts
+
+The data for multiple samples has been prepared for you in the 'combine'.
+
+``` bash        
+cd combine
+```
+
+Within this folder there is a manifest file which is needed to combine the different samples.
+
+``` bash        
+less pacbio_manifest.txt
+```
+
+The file contains information on which samples need to merge and where the files are located from the previous step. The combine step will need these files to be able to look at how reads are mapped against the reference genome, the sequences of the transcripts and the annotation on where they are located on the reference genome. Once everything is in place, the files can be merged.
+
+``` bash        
+flair combine -c -m pacbio_manifest.txt -o pacbio_merge
+```
+
+Take a look at the files generated. 
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+Take a look at the bed file again. How many annotations within the file? How does this compare to the number in the sample annotation?
+
+<details>
+
+<summary>Solution</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+To check the number of annotations in the file, we can use `wc`
+
+``` bash        
+wc -l pacbio_merge.bed
+```
+
+:::
+
+</details>
+::::
+
+The number of annotation is greatly decreased compared to the sample annotation. 
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+Can you think of reasons why the number of annotations has decreased? 
+
+::::
+
+There are a three main reason why the number of annotations has changed:
+- Annotations have been merged into a single transcript, because reads of other samples compliment our original sample, overlapping and generating a single transcript from multiple.
+- Transcripts have only been found in a single sample with a low about of reads covering it, meaning it might be an incorrect annotation. The thresholds for this can be adjusted in the combine command if wanted. 
+- The transcript is too short for it to be considered a true gene. Again this can be adjusted in the combine command. 
+
+This means now we have our genome annotated. The annotations are both available in a bed file and a gtf file, which are the files more often used by quantification methods. Be aware that this annotation might not include all isoforms available, but isoforms that have been found within this set of samples. As more samples become available, new versions of the annotation will need to be made. 
+
+In case there are specific samples you might be interested in, each sample can be explored individually. 
+You might have noticed that both flair commands generate a count file as well. This is the quantification of each transcript within the annotation and these files can be used for downstream analysis. We will take a look at how to quantify reads without identification first as well. 
+
+## Reference
+
+- https://pubmed.ncbi.nlm.nih.gov/38849569/

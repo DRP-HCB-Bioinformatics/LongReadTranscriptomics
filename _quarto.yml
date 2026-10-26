@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Long Read Transcriptomics"
+  sidebar:
+    contents:
+      - href: index.qmd
+        text: Home
+      - href: 01_LongReadQC.qmd
+        text: Long Read QC
+      - href: 02_Identification.qmd
+        text: Transcript Identification
+      - href: 03_Quantification.qmd
+        text: Transcript Quantification
+       
+format:
+  html:
+    theme: cosmo
+    css: challengestyles.css
+    toc: true
+    link-external-newwindow: true

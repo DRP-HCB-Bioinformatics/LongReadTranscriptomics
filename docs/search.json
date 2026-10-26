@@ -1,0 +1,265 @@
+[
+  {
+    "objectID": "TransferringFiles.html",
+    "href": "TransferringFiles.html",
+    "title": "Transferring Files",
+    "section": "",
+    "text": "Remove servers are extremely useful in doing processing of large amounts of data. However in many cases, files will need to be transfer to or from these servers. There are several tools that are useful and easy to use. How to connect to a remote server using FileZilla and Cyberduck are explained below. FileZilla is available for all operating systems, Cyberduck is available for Windows and MacOS. The instructions for both will assume that the tool have been installed and you are connecting from within the university from a location on site or through a VPN connection. At the end, there will be a section on Rsync, which can be used to copy files and folders from a Linux machine or between servers."
+  },
+  {
+    "objectID": "TransferringFiles.html#filezilla",
+    "href": "TransferringFiles.html#filezilla",
+    "title": "Transferring Files",
+    "section": "FileZilla",
+    "text": "FileZilla\nFileZilla is a generally used tool for transferring files. When opening FileZilla, the screen should look like Figure 1.\n\n\n\n\n\n\nFigure 1: FileZilla opening screen\n\n\n\nTo open a connection to a server, go to File at the top and click Site Manager. Create a new site. To connect to the server, there are several settings that need to be changed.\n\nThe protocol should be set to SFTP - SSH File Transfer Protocol\nThe host must contain the link to the server. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the logon to Ask for password\nSet the user to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nThis connection should now be saved for future used. Click Connect to establish the connection. The first time you connect, you might need to accept the server as being trusted. Lastly, your password will be asked. The settings are shown in Figure 2.\n\n\n\n\n\n\nFigure 2: FileZilla connection screen\n\n\n\nAt the top of the screen, information on the status of the connection will be shared. Once the connection has been established, the folder on the server should show on the right side of the screen. To transfer data between the two systems, right click any files (the files on your computer on the left, server on the right) and download them. A good thing to be aware of is that files will be uploaded into the folder that is currently selected on the other system. At the bottom of the screen, files are shown that are currently being processed. Once all the files are processed, the data should be where they are wanted."
+  },
+  {
+    "objectID": "TransferringFiles.html#cyberduck",
+    "href": "TransferringFiles.html#cyberduck",
+    "title": "Transferring Files",
+    "section": "Cyberduck",
+    "text": "Cyberduck\nCyberduck works very similar to FileZilla, when opening up it should look like Figure 3.\n\n\n\n\n\n\nFigure 3: Cyberduck opening screen\n\n\n\nSeveral settings need to be configured to make the connection work.\n\nThe protocol should be set to SFTP (SSH File Transfer Protocol)\nThe server must contain the link to the host. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the username to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nOnce this is set, press connect. The first time you connect, you might need to accept the server as being trusted. An overview of the settings is shown in Figure 4\n\n\n\n\n\n\nFigure 4: Cyberduck connection screen\n\n\n\nWhen the connection is established, an overview of the files on the server are shown. You can go to the folder and files that need to be downloaded. Right click the folder or file of interest. Our suggestion would be to click Download to, you will then be able to download the file to the folder you want to save the data to. To upload a file, make sure you are in the folder you want to upload the data to. Once you are in the folder, click the Upload button at the top of Cyberduck and select the folder or file to be uploaded. Click choose and the file should then be uploaded. To check the status of downloads and uploads, click the Transfer button at the top of the file."
+  },
+  {
+    "objectID": "TransferringFiles.html#rsync",
+    "href": "TransferringFiles.html#rsync",
+    "title": "Transferring Files",
+    "section": "Rsync",
+    "text": "Rsync\nThere are a number of different ways to copy files from one Linux machine to another. To copy a file or folder from a Linux machine to a server, the following command can be used.\n$ rsync -cav UPLOAD USER@HOST:/remote/destination/\nIn this command several things need to adjusted for the upload to work.\n\nUPLOAD need to be replaced with the file or folder that needs to be uploaded.\n\nUSER needs to be replaced with the username on the server. Within the University this is generally your UUN.\nHOST needs to be replaced with the link to the server (for example bifx-core1.bio.ed.ac.uk)\n/remote/destination is the place in the system that the file or folder needs to be placed inside of.\n\nTo download data, the command is basically the same, the first file or folder given is the remote file followed by the location where the file should be saved."
+  },
+  {
+    "objectID": "Eddie.html",
+    "href": "Eddie.html",
+    "title": "Eddie",
+    "section": "",
+    "text": "Eddie is a high performance cluster (HPC) within the University of Edinburgh. It is free to use, but can be complex to work with.\nBeing a HPC means that there are multiple computers tied together. Every machine within the HPC is refer to as a node, however there is one computer which runs all of the other computers. This machine is called a head node or a login node. From here everything is set off. The important thing to know is that our commands will generally not be run on this node, this just the manager.\nTo log in, use the following command. Replace the  with your UUN and make sure you are within the university network."
+  },
+  {
+    "objectID": "Eddie.html#data-storage",
+    "href": "Eddie.html#data-storage",
+    "title": "Eddie",
+    "section": "Data Storage",
+    "text": "Data Storage\nNote: Eddie is not for data storage! It is for processing of data, it is important to store your data in a main storage location\nWithin the system, there are three main data storage places.\n\nEvery user will have a home folder of 10GB: /home/&lt;UUN&gt;\nEvery user will have access to scratch which can contain 2 TB of data: /exports/eddie/scratch/&lt;UUN&gt;.\nFiles older than a month will be deleted from scratch automatically.\nGroups have and can access their DataStore on Eddie, by default this is 200GB: /exports/&lt;COLLEGE&gt;/eddie/&lt;SCHOOL&gt;/groups/&lt;GROUP NAME&gt;.\nMore information on DataStore can be found here"
+  },
+  {
+    "objectID": "Eddie.html#running-processes",
+    "href": "Eddie.html#running-processes",
+    "title": "Eddie",
+    "section": "Running processes",
+    "text": "Running processes\nTo submit jobs, this cluster uses Grid Engine. With that we can ‘submit’ jobs into a list. The head (or login) node will look at which computers are busy and which computer can take your job and run it. Before looking into how to submit jobs, we will look into what we need to submit jobs.\n\nJob Scripts\nTo submit jobs, specific scripts are needed. These contain information on how many threads or cores the job should be run on as well as the commands that need to be run. Below an example of a script.\n#!/bin/sh\n#$ -N hello              \n#$ -cwd                  \n#$ -pe sharedmem 2\n#$ -l h_rss=32G\n#$ -l h_rt=00:05:00 \n\n# Initialise the environment modules\n. /etc/profile.d/modules.sh\n\n# Load Python\nmodule load python/3.4.3\n\n# Run the program\n./hello.py\nImportant settings are at the top, indicated with #$. Any lines below these lines that start with a # below are comments, other lines are the commands that need to be run.\n\n-N is the name that will be used for the job\n-cwd means it will use the current working directory\n-pe sharedmem 2 indicates how many threads or cores should be used, in this case 2.\n-l h_rss=32G is used to set how much memory can be used per core, in this case it would mean 64GB in total over the 2 cores set. This is an option setting, but can be very useful for specific bioinformatic applications.\nl h_rt=00:05:00 indicates the runtime needed for this job. This indicates 5 minutes. The setup for the time needed is HH:MM:SS\n\nTo check what the maximum amount of cores (or slots) and memory is on machines within the cluster, please check here.\n\n\nJob Submission\nTo submit jobs and get them to run, the qsub command can be used.\n$ qsub script.sh\nIf the data is being read from or written to a group on the datastore, specific nodes need to be used. To be able to submit to these nodes specifically, use the following command.\n$ qsub -q staging script.sh\nOnce submitted, the cluster will give you a job ID.\n\n\nJob Status\nAn important thing to check is what the status is for your jobs. This can easily be done using the qstat command.\n$ qstat\nIf no jobs are currently running or waiting for you, no results will be shown. If there are jobs, information about the state of the job can be seen. A number of different options are available as states.\n\nqw means the job is queued and waiting\nr is a running job\ns means the job has been suspended\nEqw means something has gone wrong in the setup or execution.\n\n\n\nJob Cancel\nWhen a job is runnig but something has gone wrong or we realise that something needs to be changed, there is the option to cancel jobs. To cancel a job, we need to have the ID. This can be taken from the submission or the status overview. To cancel the job, the command qdel is used.\n$ qdel JOBID\nThe terminal will tell us that the job has been deleted, freeing up the server for a new job."
+  },
+  {
+    "objectID": "Eddie.html#sessions",
+    "href": "Eddie.html#sessions",
+    "title": "Eddie",
+    "section": "Sessions",
+    "text": "Sessions\nIn some cases, we want to test commands without making it into actual jobs. In those cases we can use interactive sessions. By default, these run for only 48h, so we will look into how to get longer sessions just in case they are needed. If connection is lost to the session, unsaved data or running jobs will be lost, using screen in those cases can be useful.\n\nScreen\nscreen is a command in Linux which will allow you to run job, disconnect from the server, and come back to reconnect to the session. To be able to reconnect easily, naming a screen session will be useful.\n$ screen -R NAME\nNothing much will happen. To double check if the screen has been properly activated, we can disconnect and reconnect to the screen. To disconnect, press Control+A followed by Control+D. This should show a message that the screen has been disconnected. To reconnect to the screen, the following command can be used.\n$ screen -r NAME\nOnce a screen has started, it will stay active until we exit the screen or the machine is restarted. It can be extremely useful when running long commands, however scrolling through the results printed to screen is not allowed within a screen. Make sure to store logs if needed into files to be able to view them completely.\n\n\nStarting Interactive Session\nOnce inside a screen, to start an interactive session, use the following command.\n$ qlogin\nBy default, the session is set to only last 48h, uses 1 core and has a maximum of 16GB of memory. To edit these settings, the following can be added to the command.\n\n-pe sharedmem 2 can be used to set how many cores need to be available, in this case 2.\n-l h_rss=32G is used to set how much memory can be used per core, in this case it would mean 64GB in total over the 2 cores set.\n-l h_rt=HH:MM:SS can be added to adjust the time\n\nAnd then finally if we need access to the datastore, the following needs to be added.\n\n-q staging to be able to get access to the datastore.\n\nAll of these can be combined together into a single session request. The following command will request a session with 2 cores, 64GB memory in total, 2 hours of access time, and have access to datastore.\n$ qlogin -pe sharedmem 2 -l h_rss=32G -l h_rt=02:00:00 -q staging\nIt could be that no machines are currently available, try again later in that case. The more requested resources, the more likely it is that no machines are available. If this gets in the way of being able to process data, try writing small scripts to test commands."
+  },
+  {
+    "objectID": "Eddie.html#conda-environments",
+    "href": "Eddie.html#conda-environments",
+    "title": "Eddie",
+    "section": "Conda environments",
+    "text": "Conda environments\nCreating conda environments could be essential for working within the system. These can be created within the home folder, however this can cause the home folder to fill up fast. For environments needed for only testing, saving them on the scratch system will be helpful.\nTo be able to create or use a conda environment, the anaconda module needs to be loaded.\n$ module load anaconda\nOnce anaconda is loaded, conda environments can be created. If the environment needs to be create in a specific location like the scratch drive, the -p option can be used. An example is shown below to create an environment within the scratch directory called bowtie2.\n$ conda create /exports/eddie/scratch/&lt;UUN&gt;/bowtie2\nOnce created, conda can be used in the default way to install tools easily.\n$ conda activate /exports/eddie/scratch/&lt;UUN&gt;/bowtie2\n\n$ conda install bowtie2\nTo be able to use these tools within the scripts, we need to make sure that the environments are activated within them before using them. To be able to run bowtie2, the following script will activate the environment and allows us to run the tool.\n#!/bin/sh\n#$ -N hello              \n#$ -cwd                  \n#$ -pe sharedmem 2\n#$ -l h_rss=32G\n#$ -l h_rt=00:05:00 \n\n# Initialise the environment modules\n. /etc/profile.d/modules.sh\n\n# Load Conda\nmodule load anaconda\n\n# Activate the environment\nconda activate /exports/eddie/scratch/&lt;UUN&gt;/bowtie2\n\n# Run the program\nbowtie2 --help\n\n# Deactivate the environment at the end of the code\nconda deactivate\nDeactivation is not mandatory, but will make sure nothing strange has happened to the environment and keep it clean."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Long Read Transcriptomics",
+    "section": "",
+    "text": "Welcome to the Long Read Transcriptomics day taught by the Bioinformatics core at the Discovery Research Platform for Hidden Cell Biology, today we will go over several different essential topics when it comes to using long read transcriptomics data.\nDuring this course you will learn to:\n\nQC long read transcriptomics data\nMap long reads reads versus a reference genome\nIdentification of new genes and isoforms\nQuantification of genes and isoforms\n\nIf you have any questions please contact Heleen de Weerd, Daniel Robertson or Shaun Webb.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "03_NonModelOrganism.html",
+    "href": "03_NonModelOrganism.html",
+    "title": "Transferring Files",
+    "section": "",
+    "text": "Remove servers are extremely useful in doing processing of large amounts of data. However in many cases, files will need to be transfer to or from these servers. There are several tools that are useful and easy to use. How to connect to a remote server using FileZilla and Cyberduck are explained below. FileZilla is available for all operating systems, Cyberduck is available for Windows and MacOS. The instructions for both will assume that the tool have been installed and you are connecting from within the university from a location on site or through a VPN connection. At the end, there will be a section on Rsync, which can be used to copy files and folders from a Linux machine or between servers.",
+    "crumbs": [
+      "Non Model Organism"
+    ]
+  },
+  {
+    "objectID": "03_NonModelOrganism.html#filezilla",
+    "href": "03_NonModelOrganism.html#filezilla",
+    "title": "Transferring Files",
+    "section": "FileZilla",
+    "text": "FileZilla\nFileZilla is a generally used tool for transferring files. When opening FileZilla, the screen should look like Figure 1.\n\n\n\n\n\n\nFigure 1: FileZilla opening screen\n\n\n\nTo open a connection to a server, go to File at the top and click Site Manager. Create a new site. To connect to the server, there are several settings that need to be changed.\n\nThe protocol should be set to SFTP - SSH File Transfer Protocol\nThe host must contain the link to the server. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the logon to Ask for password\nSet the user to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nThis connection should now be saved for future used. Click Connect to establish the connection. The first time you connect, you might need to accept the server as being trusted. Lastly, your password will be asked. The settings are shown in Figure 2.\n\n\n\n\n\n\nFigure 2: FileZilla connection screen\n\n\n\nAt the top of the screen, information on the status of the connection will be shared. Once the connection has been established, the folder on the server should show on the right side of the screen. To transfer data between the two systems, right click any files (the files on your computer on the left, server on the right) and download them. A good thing to be aware of is that files will be uploaded into the folder that is currently selected on the other system. At the bottom of the screen, files are shown that are currently being processed. Once all the files are processed, the data should be where they are wanted.",
+    "crumbs": [
+      "Non Model Organism"
+    ]
+  },
+  {
+    "objectID": "03_NonModelOrganism.html#cyberduck",
+    "href": "03_NonModelOrganism.html#cyberduck",
+    "title": "Transferring Files",
+    "section": "Cyberduck",
+    "text": "Cyberduck\nCyberduck works very similar to FileZilla, when opening up it should look like Figure 3.\n\n\n\n\n\n\nFigure 3: Cyberduck opening screen\n\n\n\nSeveral settings need to be configured to make the connection work.\n\nThe protocol should be set to SFTP (SSH File Transfer Protocol)\nThe server must contain the link to the host. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the username to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nOnce this is set, press connect. The first time you connect, you might need to accept the server as being trusted. An overview of the settings is shown in Figure 4\n\n\n\n\n\n\nFigure 4: Cyberduck connection screen\n\n\n\nWhen the connection is established, an overview of the files on the server are shown. You can go to the folder and files that need to be downloaded. Right click the folder or file of interest. Our suggestion would be to click Download to, you will then be able to download the file to the folder you want to save the data to. To upload a file, make sure you are in the folder you want to upload the data to. Once you are in the folder, click the Upload button at the top of Cyberduck and select the folder or file to be uploaded. Click choose and the file should then be uploaded. To check the status of downloads and uploads, click the Transfer button at the top of the file.",
+    "crumbs": [
+      "Non Model Organism"
+    ]
+  },
+  {
+    "objectID": "03_NonModelOrganism.html#rsync",
+    "href": "03_NonModelOrganism.html#rsync",
+    "title": "Transferring Files",
+    "section": "Rsync",
+    "text": "Rsync\nThere are a number of different ways to copy files from one Linux machine to another. To copy a file or folder from a Linux machine to a server, the following command can be used.\n$ rsync -cav UPLOAD USER@HOST:/remote/destination/\nIn this command several things need to adjusted for the upload to work.\n\nUPLOAD need to be replaced with the file or folder that needs to be uploaded.\n\nUSER needs to be replaced with the username on the server. Within the University this is generally your UUN.\nHOST needs to be replaced with the link to the server (for example bifx-core1.bio.ed.ac.uk)\n/remote/destination is the place in the system that the file or folder needs to be placed inside of.\n\nTo download data, the command is basically the same, the first file or folder given is the remote file followed by the location where the file should be saved.",
+    "crumbs": [
+      "Non Model Organism"
+    ]
+  },
+  {
+    "objectID": "01_LongReadQC.html",
+    "href": "01_LongReadQC.html",
+    "title": "Long Read Transcriptomics",
+    "section": "",
+    "text": "As long-read sequencing has become more affordable and widely accessible, transcriptomics has emerged as one of the key fields benefiting from this technology. The option to sequence full-length transcripts and isoforms provides a clear view of transcript structure, alternative splicing, and the complexity of gene expression. In this session we will look at and discuss the differences between Nanopore and PacBio. We will also look into identification of new isoforms or genes, and look into quantification of the genes for both model and non model organisms.\nFor the quality control and model organism data, we will use Nanopore data and PacBio data available for the same samples. The raw data is from the following publication: “Benchmarking long-read RNA-sequencing technologies with LongBench: a cross-platform reference dataset profiling cancer cell lines with bulk and single-cell approaches” https://www.biorxiv.org/content/10.1101/2025.09.11.675724v2.full.pdf\nThe following commands will copy the data into your home if you are on the bifxcore server.\nOr if you are working on another computer or server.",
+    "crumbs": [
+      "Long Read QC"
+    ]
+  },
+  {
+    "objectID": "01_LongReadQC.html#filezilla",
+    "href": "01_LongReadQC.html#filezilla",
+    "title": "Transferring Files",
+    "section": "FileZilla",
+    "text": "FileZilla\nFileZilla is a generally used tool for transferring files. When opening FileZilla, the screen should look like Figure 1.\n\n\n\n\n\n\nFigure 1: FileZilla opening screen\n\n\n\nTo open a connection to a server, go to File at the top and click Site Manager. Create a new site. To connect to the server, there are several settings that need to be changed.\n\nThe protocol should be set to SFTP - SSH File Transfer Protocol\nThe host must contain the link to the server. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the logon to Ask for password\nSet the user to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nThis connection should now be saved for future used. Click Connect to establish the connection. The first time you connect, you might need to accept the server as being trusted. Lastly, your password will be asked. The settings are shown in Figure 2.\n\n\n\n\n\n\nFigure 2: FileZilla connection screen\n\n\n\nAt the top of the screen, information on the status of the connection will be shared. Once the connection has been established, the folder on the server should show on the right side of the screen. To transfer data between the two systems, right click any files (the files on your computer on the left, server on the right) and download them. A good thing to be aware of is that files will be uploaded into the folder that is currently selected on the other system. At the bottom of the screen, files are shown that are currently being processed. Once all the files are processed, the data should be where they are wanted.",
+    "crumbs": [
+      "Long Read QC"
+    ]
+  },
+  {
+    "objectID": "01_LongReadQC.html#cyberduck",
+    "href": "01_LongReadQC.html#cyberduck",
+    "title": "Transferring Files",
+    "section": "Cyberduck",
+    "text": "Cyberduck\nCyberduck works very similar to FileZilla, when opening up it should look like Figure 3.\n\n\n\n\n\n\nFigure 3: Cyberduck opening screen\n\n\n\nSeveral settings need to be configured to make the connection work.\n\nThe protocol should be set to SFTP (SSH File Transfer Protocol)\nThe server must contain the link to the host. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the username to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nOnce this is set, press connect. The first time you connect, you might need to accept the server as being trusted. An overview of the settings is shown in Figure 4\n\n\n\n\n\n\nFigure 4: Cyberduck connection screen\n\n\n\nWhen the connection is established, an overview of the files on the server are shown. You can go to the folder and files that need to be downloaded. Right click the folder or file of interest. Our suggestion would be to click Download to, you will then be able to download the file to the folder you want to save the data to. To upload a file, make sure you are in the folder you want to upload the data to. Once you are in the folder, click the Upload button at the top of Cyberduck and select the folder or file to be uploaded. Click choose and the file should then be uploaded. To check the status of downloads and uploads, click the Transfer button at the top of the file.",
+    "crumbs": [
+      "Long Read QC"
+    ]
+  },
+  {
+    "objectID": "01_LongReadQC.html#rsync",
+    "href": "01_LongReadQC.html#rsync",
+    "title": "Transferring Files",
+    "section": "Rsync",
+    "text": "Rsync\nThere are a number of different ways to copy files from one Linux machine to another. To copy a file or folder from a Linux machine to a server, the following command can be used.\n$ rsync -cav UPLOAD USER@HOST:/remote/destination/\nIn this command several things need to adjusted for the upload to work.\n\nUPLOAD need to be replaced with the file or folder that needs to be uploaded.\n\nUSER needs to be replaced with the username on the server. Within the University this is generally your UUN.\nHOST needs to be replaced with the link to the server (for example bifx-core1.bio.ed.ac.uk)\n/remote/destination is the place in the system that the file or folder needs to be placed inside of.\n\nTo download data, the command is basically the same, the first file or folder given is the remote file followed by the location where the file should be saved.",
+    "crumbs": [
+      "Long Read QC"
+    ]
+  },
+  {
+    "objectID": "02_ModelOrganism.html",
+    "href": "02_ModelOrganism.html",
+    "title": "Transferring Files",
+    "section": "",
+    "text": "Remove servers are extremely useful in doing processing of large amounts of data. However in many cases, files will need to be transfer to or from these servers. There are several tools that are useful and easy to use. How to connect to a remote server using FileZilla and Cyberduck are explained below. FileZilla is available for all operating systems, Cyberduck is available for Windows and MacOS. The instructions for both will assume that the tool have been installed and you are connecting from within the university from a location on site or through a VPN connection. At the end, there will be a section on Rsync, which can be used to copy files and folders from a Linux machine or between servers.",
+    "crumbs": [
+      "Model Organism"
+    ]
+  },
+  {
+    "objectID": "02_ModelOrganism.html#filezilla",
+    "href": "02_ModelOrganism.html#filezilla",
+    "title": "Transferring Files",
+    "section": "FileZilla",
+    "text": "FileZilla\nFileZilla is a generally used tool for transferring files. When opening FileZilla, the screen should look like Figure 1.\n\n\n\n\n\n\nFigure 1: FileZilla opening screen\n\n\n\nTo open a connection to a server, go to File at the top and click Site Manager. Create a new site. To connect to the server, there are several settings that need to be changed.\n\nThe protocol should be set to SFTP - SSH File Transfer Protocol\nThe host must contain the link to the server. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the logon to Ask for password\nSet the user to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nThis connection should now be saved for future used. Click Connect to establish the connection. The first time you connect, you might need to accept the server as being trusted. Lastly, your password will be asked. The settings are shown in Figure 2.\n\n\n\n\n\n\nFigure 2: FileZilla connection screen\n\n\n\nAt the top of the screen, information on the status of the connection will be shared. Once the connection has been established, the folder on the server should show on the right side of the screen. To transfer data between the two systems, right click any files (the files on your computer on the left, server on the right) and download them. A good thing to be aware of is that files will be uploaded into the folder that is currently selected on the other system. At the bottom of the screen, files are shown that are currently being processed. Once all the files are processed, the data should be where they are wanted.",
+    "crumbs": [
+      "Model Organism"
+    ]
+  },
+  {
+    "objectID": "02_ModelOrganism.html#cyberduck",
+    "href": "02_ModelOrganism.html#cyberduck",
+    "title": "Transferring Files",
+    "section": "Cyberduck",
+    "text": "Cyberduck\nCyberduck works very similar to FileZilla, when opening up it should look like Figure 3.\n\n\n\n\n\n\nFigure 3: Cyberduck opening screen\n\n\n\nSeveral settings need to be configured to make the connection work.\n\nThe protocol should be set to SFTP (SSH File Transfer Protocol)\nThe server must contain the link to the host. As an example bifx-core1.bio.ed.ac.uk can be used.\nSet the username to your username, for the servers within the University this will often be your UUN unless otherwise specified. If you are unsure, ask an administrator of the server.\n\nOnce this is set, press connect. The first time you connect, you might need to accept the server as being trusted. An overview of the settings is shown in Figure 4\n\n\n\n\n\n\nFigure 4: Cyberduck connection screen\n\n\n\nWhen the connection is established, an overview of the files on the server are shown. You can go to the folder and files that need to be downloaded. Right click the folder or file of interest. Our suggestion would be to click Download to, you will then be able to download the file to the folder you want to save the data to. To upload a file, make sure you are in the folder you want to upload the data to. Once you are in the folder, click the Upload button at the top of Cyberduck and select the folder or file to be uploaded. Click choose and the file should then be uploaded. To check the status of downloads and uploads, click the Transfer button at the top of the file.",
+    "crumbs": [
+      "Model Organism"
+    ]
+  },
+  {
+    "objectID": "02_ModelOrganism.html#rsync",
+    "href": "02_ModelOrganism.html#rsync",
+    "title": "Transferring Files",
+    "section": "Rsync",
+    "text": "Rsync\nThere are a number of different ways to copy files from one Linux machine to another. To copy a file or folder from a Linux machine to a server, the following command can be used.\n$ rsync -cav UPLOAD USER@HOST:/remote/destination/\nIn this command several things need to adjusted for the upload to work.\n\nUPLOAD need to be replaced with the file or folder that needs to be uploaded.\n\nUSER needs to be replaced with the username on the server. Within the University this is generally your UUN.\nHOST needs to be replaced with the link to the server (for example bifx-core1.bio.ed.ac.uk)\n/remote/destination is the place in the system that the file or folder needs to be placed inside of.\n\nTo download data, the command is basically the same, the first file or folder given is the remote file followed by the location where the file should be saved.",
+    "crumbs": [
+      "Model Organism"
+    ]
+  },
+  {
+    "objectID": "01_LongReadQC.html#pacbio",
+    "href": "01_LongReadQC.html#pacbio",
+    "title": "Long Read Transcriptomics",
+    "section": "PacBio",
+    "text": "PacBio\nPacBio can be special when it comes to long read transcriptomics. Besides being able to sequence the transcriptome as is, PacBio has developed a method, called the Kinnex protocol, that will create longer reads by joining multiple transcriptions together. This is done to maximize the output, however this can make downstream processing more complex. In most cases the data which we get from a provider is separated into separate transcripts, however confirming this has happened is important.\ncd LRT\n\nNanoPlot -t 8 --ubam hifi_reads.bcM0002_200K.bam --plot dots -o NanoPlot_hifi\nThe results can be downloaded using FileZilla or they can be viewed here.\n\n\n Challenge:\n\nTake a look at the NanoPlot results. Is the average length of the reads expected for transcriptome reads?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nOn average, the length of transcriptome sequences is around 2kb for humans. The average of the reads here is 16kb, much larger than expected.\n\n\n\n\n\nPacBio has an optimal read length of around 18kb. This means if we find lengths that are on average around that length, most likely the data is still joined together. To be able to separate the transcripts, skera needs to be used. skera uses tags between the transcripts to separate them. For this it uses a fasta file that contains the sequences for the adapters and can be downloaded from the PacBio website. Today, the adapters are already downloaded and can be found in mas8.fasta.\nskera split hifi_reads.bcM0002_200K.bam mas8.fasta segmented.bam\nTo see what this has done to the reads, NanoPlot can be used to look at the results.\nNanoPlot -t 8 --ubam segmented.bam --plot dots -o NanoPlot_segmented\nThe results can be view here.\n\n\n Challenge:\n\nCompare the results to the previous set. How have the results changed?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nOn average, the length of transcriptome sequences is now 2k, which is expected for this sample. The total number of reads has gone up, because the reads have been split into multiple.\n\n\n\n\n\nWhether the Kinnex protocol was used or not, the data will contain primers which need to be remove or it contains barcodes that can identify samples. To remove the adapters and separate samples by barcodes, lima needs to be used in combination with the barcodes used. In this case, primers can be found in isoseq.fasta. Depending on the protocol used, a different fasta file should be used. If in doubt, check with the provider which barcodes have been used.\nlima segmented.bam isoseq.fasta segmented.fl.bam --isoseq --peek-guess\nIf there are multiple samples, multiple files will be created.\n\n\n Challenge:\n\nTake a look at the files generated. In this case there is only one sample. Which file contains our reads?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nls\nThere are a number of files generated, including a report of the results. The reads for our sample are in segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam. The naming of the file reflex the name of the primers or barcodes within the fasta file used during lima.\n\n\n\n\n\nThere is one more step to do to make sure the data is ready for analysis. The step to do is a refinement, which will make sure all reads have been properly separated, primers removed and if applicable can check if reads have a polyA tail and remove the tail from the reads.\nisoseq refine segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam isoseq.fasta segmented.refined.bam --require-polya\nThe final step before being able to identify or quantify isoforms, the reads needs to be mapped versus the reference genome. For long reads, the best mapper is minimap2. PacBio has an implementation for it, named pbmm2, which can be helpful, however in this case we will use the base version of minimap2. For minimap2, the data will need to be in fastq format, and therefore we will need to transform our data to a fastq file.\nsamtools bam2fq segmented.refined.bam | pigz -c &gt; segmented.refined.fastq.gz\nOnce the reads are in fastq format, minimap2 can map them to the reference genome.\nminimap2 -t 24 -a -x splice:hq -s 40 -G 350k --MD --secondary=no GCF_000001405.40_GRCh38.p14_genomic.fna segmented.refined.fastq.gz | samtools view -hb - | samtools sort - &gt; refined.mapped.bam\nNote: This will take some time, for today it can be skipped if it takes too long, data has been prepared for you for next steps\nPacBio data is then ready for processing, whether that is identification of new isoforms and genes or quantification of transcripts. We will get into both of these applications in the next session.",
+    "crumbs": [
+      "Long Read QC"
+    ]
+  },
+  {
+    "objectID": "01_LongReadQC.html#nanopore",
+    "href": "01_LongReadQC.html#nanopore",
+    "title": "Long Read Transcriptomics",
+    "section": "NanoPore",
+    "text": "NanoPore\nBefore we continue with processing of the data, we will take a look at NanoPore data and how different it is when it comes to preprocessing. Nanopore has two different methods for generating reads for the transcriptome. The first method transforms the RNA into cDNA and uses PCR to add adapters to the reads. The second method takes the transcriptome as is, attaches an adapter by ligation, and is sequenced on a specific RNA flowcell. Both methods have their pros and cons, and in terms of processing these will be slightly different when it comes to mapping the reads, which we will get into later. However the preprocessing is the same between the two methods. The data for NanoPore for both methods will be reported in BAM or FASTQ format. Either of these can be checked with NanoPlot.\nNanoPlot -t 8 --fastq nanopore.fastq.gz --plot dots -o NanoPlot_nanopore\nThe results can be viewed here\n\n\n Challenge:\n\nTake a look at the results generated and compare to the PacBio results. How do the results differ?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nThere are some difference, before processing the data from Nanopore is already in line with the expected lengths for transcripts. The average quality of reads is lower compared to PacBio. There is more variation in lengths found.\n\n\n\n\n\nDepending on the results and species that is being sequenced, we might want to do a quality filtering. If there are multiple species within the sample, especially if those species are closely related, removing low quality reads can improve the results.\nOften when filtering data, we want to keep highly accurate data. Data that is above a quality of 20 is considered to be of high quality. With Nanopore this is often not reached, so to keep the data of high quality but not lose too much data, the cutoff is often set to the mean read quality. In this case the mean quality is 12, using nanoq we can filter out anything below that threshold.\nnanoq --min-qual 12 -i nanopore.fastq.gz -o nanopore.trimmed.fastq.gz\nNanoq after filtering will report how many reads are left after filtering and the general statistics on the resulting reads. This includes the following: number of reads, number of bases, N50, longest read, shortest read, mean length, median length, mean quality and median quality. The data is now ready for mapping.\nTo check the results, run NanoPlot on the trimmed results.\nNanoPlot -t 8 --fastq nanopore.trimmed.fastq.gz --plot dots -o NanoPlot_trimmed\nCheck the effect of the trimming here.\nFinally, similar to PacBio, the reads need to be mapped against the reference genome. Again we can use minimap2 for that. The command is slightly different.\nminimap2 -t 12 -a -x splice -s 40 -G 350k -uf --MD --secondary=no GCF_000001405.40_GRCh38.p14_genomic.fna nanopore.trimmed.fastq.gz | samtools view -hb - | samtools sort - &gt; nanopore.mapped.bam\nOnce mapped, the data is ready to be identified or quantified.",
+    "crumbs": [
+      "Long Read QC"
+    ]
+  },
+  {
+    "objectID": "02_Identification.html",
+    "href": "02_Identification.html",
+    "title": "Long Read Transcriptomics",
+    "section": "",
+    "text": "Identifying novel transcripts is an important step in transcriptome analysis, particularly for non-model organisms. Several tools (IsoQuant and TALON) are available to identify transcripts that are not present in existing annotations. A comparative study cited in the references evaluates the performance of different tools and provides recommendations on their suitability for different applications. Among the tools assessed, FLAIR performs well across a broad range of applications, making it a useful choice for both model and non-model organisms. Therefore, in this training, we will use FLAIR to identify novel transcripts.",
+    "crumbs": [
+      "Transcript Identification"
+    ]
+  },
+  {
+    "objectID": "02_Identification.html#flair",
+    "href": "02_Identification.html#flair",
+    "title": "Long Read Transcriptomics",
+    "section": "FLAIR",
+    "text": "FLAIR\nTo be able to annotate transcripts, mapped reads in the form of a bam files are needed. FLAIR is one of the few tools that can evaluate on a per sample basis and then merge the results. This is especially useful if computational resources are limited or samples are added after the initial analysis.\n\nFor the moment, we will use pacbio data to go through the steps. The steps will be exactly the same for nanopore data.\n\nSample Transcript Identification\nBefore we start, the bam file needs to be indexed.\nsamtools index H146_nanopore.chromosome2.bam\nThis will generate an index file for the bam file. The index file is used by different tools to be able to access data within the bam file more easily. Once the index file has been generated, the identification can be done.\nflair transcriptome -g GCF_000001405.40_GRCh38.p14_genomic.fna -f GCF_000001405.40_GRCh38.p14_genomic.gtf -t 10 -b H146_pacbio.chromosome2.bam -o H146_pacbio.chromosome2\nNote: This will take about 5 minutes\nTake a look at the files generated. Several files are generated, in this case the most important ones are the ones ending in .bed, .fa and read.map.txt.\n\n\n Challenge:\n\nTake a look at the bed file. How many annotations within the file? How many of these are new?\nHint: New annotation with the ID of the sample will be new, in this case the ID is SRR30947496.\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nFirst to check the number of annotations in the file, we can use wc\nwc -l H146_pacbio.chromosome2.isoforms.bed\nTo check which annotations are new, aka contain the SRR30947496 label, we can use grep\ngrep \"SRR30947496\" H146_pacbio.chromosome2.isoforms.bed | wc -l\n\n\n\n\n\nA large number of new transcripts have been generated. These are sample specific, lets look at what happens if we merge results from multiple samples.\n\n\nMerge Transcripts\nThe data for multiple samples has been prepared for you in the ‘combine’.\ncd combine\nWithin this folder there is a manifest file which is needed to combine the different samples.\nless pacbio_manifest.txt\nThe file contains information on which samples need to merge and where the files are located from the previous step. The combine step will need these files to be able to look at how reads are mapped against the reference genome, the sequences of the transcripts and the annotation on where they are located on the reference genome. Once everything is in place, the files can be merged.\nflair combine -c -m pacbio_manifest.txt -o pacbio_merge\nTake a look at the files generated.\n\n\n Challenge:\n\nTake a look at the bed file again. How many annotations within the file? How does this compare to the number in the sample annotation?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nTo check the number of annotations in the file, we can use wc\nwc -l pacbio_merge.bed\n\n\n\nThe number of annotation is greatly decreased compared to the sample annotation.\n\n\n Challenge:\n\nCan you think of reasons why the number of annotations has decreased?\n\nThere are a three main reason why the number of annotations has changed: - Annotations have been merged into a single transcript, because reads of other samples compliment our original sample, overlapping and generating a single transcript from multiple. - Transcripts have only been found in a single sample with a low about of reads covering it, meaning it might be an incorrect annotation. The thresholds for this can be adjusted in the combine command if wanted. - The transcript is too short for it to be considered a true gene. Again this can be adjusted in the combine command.\nThis means now we have our genome annotated. The annotations are both available in a bed file and a gtf file, which are the files more often used by quantification methods. Be aware that this annotation might not include all isoforms available, but isoforms that have been found within this set of samples. As more samples become available, new versions of the annotation will need to be made.\nIn case there are specific samples you might be interested in, each sample can be explored individually. You might have noticed that both flair commands generate a count file as well. This is the quantification of each transcript within the annotation and these files can be used for downstream analysis. We will take a look at how to quantify reads without identification first as well.",
+    "crumbs": [
+      "Transcript Identification"
+    ]
+  },
+  {
+    "objectID": "02_Identification.html#reference",
+    "href": "02_Identification.html#reference",
+    "title": "Long Read Transcriptomics",
+    "section": "Reference",
+    "text": "Reference\n\nhttps://pubmed.ncbi.nlm.nih.gov/38849569/",
+    "crumbs": [
+      "Transcript Identification"
+    ]
+  },
+  {
+    "objectID": "03_Quantification.html",
+    "href": "03_Quantification.html",
+    "title": "Long Read Transcriptomics",
+    "section": "",
+    "text": "For transcript quantification, again there are several tools that can be used. Some tools will need you to do transcript identification first (FLAIR), but there are many others that can work from mapped reads. These tools will need mapped reads, a reference genome sequence and a reference annotation. During this session we will take a look at Bambu, that can quantify reads on a transcript or gene level.",
+    "crumbs": [
+      "Transcript Quantification"
+    ]
+  },
+  {
+    "objectID": "03_Quantification.html#bambu",
+    "href": "03_Quantification.html#bambu",
+    "title": "Long Read Transcriptomics",
+    "section": "Bambu",
+    "text": "Bambu\nIn some cases, we specifically want to get counts per gene for a version of an annotation, without looking for new isoforms or transcripts. Though Bambu is capable of also identifying new isoforms and transcripts, mainly used organisms with a good annotation already present. In this case we will look at how to get counts for a specific annotation version.\nTo able to do this, we again need the mapped reads, a genome sequence and a genome annotation.\nBambu is based within R, a tool often used for different types of analysis. The first step that needs to be done is start R. Bambu needs one of the newest versions of R, which we have installed for you on the server.\nR works from the current directory that you start R from. Meaning that it will have access to the data within the folder and will write to the folder if we create any files.\n/library/training/LRT/R-4.6.0/bin/R\nTo be able to run commands for Bambu, the package needs to be installed within R. Packages are generally straight forward to install.\nNote: You won’t need to run this when working on the server\nBiocManager::install(\"bambu\")\nOnce packages are installed, they still need to activated.\nlibrary(bambu)\nTo run Bambu, files need to be loaded. Multiple samples can be loaded at the same time. The larger the amount of samples, the longer the process will take. Running bambu on a server is advised to speed up the process.\nfiles &lt;- list.files(path=\"./\", pattern=\"pacbio.chromosome2.bam$\")\n\n\n Challenge:\n\nHow many files have we prepared for Bambu?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nDon’t worry if you don’t know how to use R. To get the values within a variable in R, just type its name and press enter.\nfiles\n\n\n\n\n\nWe can run bambu straight away. Bambu will prepare the annotation for easier access. If you use the genome often, the annotation can be prepared before hand and saved into an object to save time.\nse &lt;- bambu(reads = files, annotations = \"../GCF_000001405.40_GRCh38.p14_genomic.gtf\", genome = \"../GCF_000001405.40_GRCh38.p14_genomic.fna\", ncore = 12, discovery = FALSE)\nNote: This will take several minutes\nOnce bambu is finished, we can write the output to a folder named bambu.\nwriteBambuOutput(se, path = \"./bambu/\")\nOpen up a new terminal to take a look at the resulting files. We want to keep the R session running to be able to continue working with the data later on.\nSeveral files are generated, the most important are the files starting with counts. Bambu will generate files for both transcript level and gene level. Depending on the analysis, either file can be used.\n\n\n Challenge:\n\nHow many transcripts have been reported? And how many genes?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nRemember that with wc we can check how many lines a file has.\nwc -l counts_transcript.txt\n\nwc -l counts_gene.txt\n\n\n\n\n\nBambu has another great functionality which is to visualise genes and the different transcripts found for the genes plus the counts of the transcripts per sample. This can help visualise if you have specific transcripts that are being used between groups. Because we are working on a server, that means we cannot directly see the plots, however we can easily save them to a pdf file.\npdf(\"UGP2.pdf\")\nplotBambu(se, type = \"annotation\", gene_id = \"UGP2\")\ndev.off()\nThe plot is by default saved to the current directory that is being worked in. The file can be downloaded from the server or you can view a prepared file here.\n\n\n Challenge:\n\nHow many transcripts have been reported for UGP2?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nThe top of the image shows the different transcripts available for the gene.\n\n\n\n\n\nThere are also options to create other plots like PCA and heatmaps.\nBecause we have the data for all samples using PacBio, Nanopore Direct sequencing and Nanopore RNA sequencing, we have prepared a set of data which contain the results for all samples using bambu.\nTo load the data into R, run the following command.\nseall &lt;- readRDS(file=\"bamburesults_allsamples.rds\")\nTo be able to create a pca plot which shows information on groups, group information needs to be added to the R object that we want to look at. Within bambu, information of samples is captures in colData(seall).\n\n\n Challenge:\n\nRun colData(seall) in R. What information is currently available for the samples?\n\n\nSolution\n\n\nSolution. \n\n Solution:\n\nThe only information currently available is the names of the samples.\n\n\n\n\n\nThere are several ways to add data, for now we will add data manually. This is normally not recommended, as mistakes are easily made, but for this example it will do.\ncolData(seall)$seqtype &lt;- c(\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\",\"direct\", \"nanopore\", \"pacbio\")\nNow, lets for creating a pca plot.\npdf(\"pcaseall.pdf\")\nplotBambu(seall, type=\"pca\", \"seqtype\")\ndev.off()\nDownload the result or open the file here.\n\n\n Challenge:\n\nIs there anything that stands out to you from the pca plot?",
+    "crumbs": [
+      "Transcript Quantification"
+    ]
+  }
+]

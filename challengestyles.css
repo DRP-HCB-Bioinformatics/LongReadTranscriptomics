@@ -1,0 +1,286 @@
+/* css styles */
+.blue pre {
+  background: #C3D8EA;
+}
+
+.white {
+  background: white;
+}
+
+.center {
+  text-align: center;
+}/* css styles */
+
+.box{
+  background:#f0f7fa;
+  border-left:4px solid #4699C3;
+  padding: 0.1rem 1rem 0.1rem 1rem;
+  margin:1rem 0;
+  border-radius:4px
+}
+
+/* ==========================================================================
+   Base Callout Box Layout & Typography
+   ========================================================================== */
+
+.key-points,
+.objectives,
+.discussion,
+.resources,
+.challenge,
+.exercise {
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  overflow: hidden; /* Clips header banner corners to box border-radius */
+}
+
+/* Base Header Styling for non-banner headers */
+.key-points h2, .objectives h2, .discussion h2, .resources h2,
+.key-points h3, .objectives h3, .discussion h3, .resources h3,
+.solution h2, .solution h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem 0;
+  padding: 0;
+  border: none; /* Clears default Quarto h2 bottom border */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+}
+
+/* Paragraph & List Spacing Rules */
+.key-points p, .objectives p, .discussion p, .resources p, .challenge p, .exercise p {
+  margin: 0 0 0.6rem 0;
+}
+
+.key-points ul, .objectives ul, .discussion ul, .resources ul, .challenge ul, .exercise ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.key-points li, .objectives li, .discussion li, .resources li, .challenge li, .exercise li {
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Inline Code & Code Block Fixes
+   ========================================================================== */
+
+/* Universal Inline Code Style */
+.key-points :not(pre) > code,
+.objectives :not(pre) > code,
+.discussion :not(pre) > code,
+.resources :not(pre) > code,
+.challenge :not(pre) > code,
+.exercise :not(pre) > code,
+.solution :not(pre) > code {
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.88em;
+  background: rgba(0, 0, 0, 0.06);
+  color: inherit;
+}
+
+/* Quarto Code Block Container Fix (prevents double boxes) */
+.key-points div.sourceCode,
+.objectives div.sourceCode,
+.discussion div.sourceCode,
+.resources div.sourceCode,
+.challenge div.sourceCode,
+.exercise div.sourceCode,
+.solution div.sourceCode {
+  margin: 0.6rem 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.key-points pre,
+.objectives pre,
+.discussion pre,
+.resources pre,
+.challenge pre,
+.exercise pre,
+.solution pre {
+  margin: 0.6rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #212529;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+/* Strips inner background/border applied to code tags inside pre blocks */
+.key-points pre code,
+.objectives pre code,
+.discussion pre code,
+.resources pre code,
+.challenge pre code,
+.exercise pre code,
+.solution pre code {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   Side & Top Accent Box Variants
+   ========================================================================== */
+
+/* Key Points (Sage Green - Left Accent) */
+.key-points {
+  background: #f4f8f7;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  border-color: #dce8e5 #dce8e5 #dce8e5 #437a6e;
+  border-radius: 0 8px 8px 0;
+  color: #2f4540;
+}
+.key-points h2, .key-points h2 i { color: #437a6e; }
+
+/* Objectives (Teal - Left Accent) */
+.objectives {
+  background: #f2f7f8;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  border-color: #dbe6e8 #dbe6e8 #dbe6e8 #5b9aa0;
+  border-radius: 0 8px 8px 0;
+  color: #243d40;
+}
+.objectives h2, .objectives h2 i { color: #3b6b70; }
+
+/* Discussion (Terracotta - Left Accent) */
+.discussion {
+  background: #fbf1ef;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  border-color: #f2ded9 #f2ded9 #f2ded9 #c8553d ;
+  border-radius: 0 8px 8px 0;
+  color: #4a1e16;
+}
+.discussion h2, .discussion h2 i { color: #a43e28; }
+
+/* Resources (Taupe - Left Accent) */
+.resources {
+  background: #f7f6f3;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  border-color: #e8e5de #e8e5de #e8e5de #a79e84;
+  border-radius: 0 0 8px 8px;
+  color: #3f3a2f;
+}
+.resources h2, .resources h2 i { color: #766f5a; }
+
+/* ==========================================================================
+   Header-Banner Box Variants (Direct Child Header Target Only)
+   ========================================================================== */
+
+/* Challenge (Filled Slate Blue Header) */
+.challenge {
+  background: #f3f4f7;
+  border: 1px solid #dce0e9;
+  border-radius: 8px;
+  color: #242938;
+}
+
+.challenge > h2,
+.challenge > h3 {
+  background: #526084;
+  color: #ffffff;
+  margin: -1rem -1.25rem 0.8rem -1.25rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+}
+
+.challenge > h2 i,
+.challenge > h3 i {
+  color: #ffffff;
+}
+
+.exercise {
+  background: #f2f5f7;
+  border: 1px solid #d8e2e7;
+  border-radius: 8px;
+  color: #1e2d38;
+}
+
+.exercise > h2,
+.exercise > h3 {
+  background: #2f4858;
+  color: #ffffff;
+  margin: -1rem -1.25rem 0.8rem -1.25rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+}
+
+.exercise > h2 i,
+.exercise > h3 i {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Collapsible Solution Accordion
+   ========================================================================== */
+
+details {
+  margin: 0.8rem 0;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: #2d3748;
+  overflow: hidden;
+}
+
+details > summary {
+  padding: 0.6rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2d3748;
+  cursor: pointer;
+  user-select: none;
+  background: #f8f9fa;
+  transition: background 0.15s ease;
+}
+
+details > summary:hover {
+  background: #f1f3f5;
+}
+
+.solution {
+  background: #ffffff;
+  color: #2d3748;
+  padding: 0.8rem 1rem;
+  margin: 0;
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
+  border-radius: 0 0 6px 6px;
+}
+
+.solution h2, .solution h3 {
+  color: #2d3748;
+}
+
+.solution p, .solution li {
+  color: #2d3748;
+}
+
+.solution p:last-child,
+.solution ul:last-child {
+  margin-bottom: 0;
+}
