@@ -1,30 +1,29 @@
 ---
-title: "Long Read Transcriptomics"
+title: "Transcript Quantification"
 ---
 
 ```{=html}
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 ```
 
-For transcript quantification, again there are several tools that can be used. Some tools will need you to do transcript identification first (FLAIR), but there are many others that can work from mapped reads. These tools will need mapped reads, a reference genome sequence and a reference annotation. During this session we will take a look at Bambu, that can quantify reads on a transcript or gene level.
+For transcript quantification, again there are several tools that can be used. Some tools require transcript identification first (FLAIR), but there are many others that can work directly from mapped reads. During this session we will take a look at **Bambu**, a tool for quantifying reads on a transcript or gene level.
 
 ## Bambu
 
-In some cases, we specifically want to get counts per gene for a version of an annotation, without looking for new isoforms or transcripts. Though Bambu is capable of also identifying new isoforms and transcripts, mainly used organisms with a good annotation already present. In this case we will look at how to get counts for a specific annotation version. 
+In some cases, we specifically want to get counts per gene for a version of an annotation, without looking for new isoforms or transcripts. Though Bambu is capable of also identifying new isoforms and transcripts, it is mainly used with organisms that already have a high quality annotation. To able to do this, we again need the mapped reads, a genome sequence and a genome annotation.
 
-To able to do this, we again need the mapped reads, a genome sequence and a genome annotation.
+Bambu is based within R, a popular programming language used in bioinformatics. Bambu requires one of the latest versions of R, which we have installed for you on the server.  
 
-Bambu is based within R, a tool often used for different types of analysis. The first step that needs to be done is start R. Bambu needs one of the newest versions of R, which we have installed for you on the server.  
+R runs from your current working directory, meaning it has access to the data within that folder and will write any output files to that folder.
 
-R works from the current directory that you start R from. Meaning that it will have access to the data within the folder and will write to the folder if we create any files.
+Start R by running the following command in the terminal.
 
 ``` bash
 /library/training/LRT_Tool/R-4.6.0/bin/R
 ``` 
 
-To be able to run commands for Bambu, the package needs to be installed within R. Packages are generally straight forward to install.
-
-***Note**: You won't need to run this when working on the server*
+The Bambu package needs to be installed within R. 
+***Note**: You won't need to run this when working on the server.*
 
 ``` bash
 BiocManager::install("bambu")
@@ -36,7 +35,7 @@ Once packages are installed, they still need to activated.
 library(bambu)
 ``` 
 
-To run Bambu, files need to be loaded. Multiple samples can be loaded at the same time. The larger the amount of samples, the longer the process will take. Running bambu on a server is advised to speed up the process. 
+The command below lists all of the input files for bambu by looking for files ending with `pacbio.chromosome2.bam`. Multiple samples can be loaded at the same time and the larger the number of samples, the longer the process will take. Running bambu on a server is advised to speed up this process. 
 
 ``` bash
 files <- list.files(path="./", pattern="pacbio.chromosome2.bam$")
@@ -65,16 +64,15 @@ files
 </details>
 ::::
 
-\
-
-We can run bambu straight away. Bambu will prepare the annotation for easier access. If you use the genome often, the annotation can be prepared before hand and saved into an object to save time.  
+We can run bambu with a single command. Bambu first prepares the annotation for efficient access. If you use the genome often, the annotation can be prepared beforehand and saved into an R object to save time.
 
 ``` bash
-se <- bambu(reads = files, annotations = "../GCF_000001405.40_GRCh38.p14_genomic.gtf", genome = "../GCF_000001405.40_GRCh38.p14_genomic.fna", ncore = 12, discovery = FALSE)
+se <- bambu(reads = files, annotations = "../GCF_000001405.40_GRCh38.p14_genomic.gtf", genome = "../GCF_000001405.40_GRCh38.p14_genomic.fna", ncore = 5, discovery = FALSE)
 ```
-***Note**: This will take several minutes*
 
-Once bambu is finished, we can write the output to a folder named `bambu`. 
+***Note**: This will take several minutes.*
+
+Once bambu has finished, we can write the output to a folder named `bambu`. 
 
 ``` bash
 writeBambuOutput(se, path = "./bambu/")
@@ -82,7 +80,7 @@ writeBambuOutput(se, path = "./bambu/")
 
 Open up a **new terminal** to take a look at the resulting files. We want to keep the R session running to be able to continue working with the data later on. 
 
-Several files are generated, the most important are the files starting with `counts`. Bambu will generate files for both transcript level and gene level. Depending on the analysis, either file can be used.
+Several files are generated, the most important are the files starting with `counts`. Bambu generates files for both transcript level and gene level. Depending on the analysis, either file can be used.
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
@@ -96,7 +94,7 @@ How many transcripts have been reported? And how many genes?
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-Remember that with `wc` we can check how many lines a file has.
+Remember that we can check how many lines a file has with `wc -l`.
 
 ``` bash
 wc -l counts_transcript.txt
@@ -109,10 +107,7 @@ wc -l counts_gene.txt
 </details>
 ::::
 
-\
-
-Bambu has another great functionality which is to visualise genes and the different transcripts found for the genes plus the counts of the transcripts per sample. This can help visualise if you have specific transcripts that are being used between groups.
-Because we are working on a server, that means we cannot directly see the plots, however we can easily save them to a pdf file.
+Bambu has the functionality to visualise genes, the different transcripts found for a gene, and the per sample read counts for each transcript. This can help you to visualise specific transcripts that are being used differently between sample groups. Because we are working on the command line, we cannot directly see the plots, however we can easily save them to a pdf file.
 
 ``` bash
 pdf("UGP2.pdf")
@@ -120,7 +115,7 @@ plotBambu(se, type = "annotation", gene_id = "UGP2")
 dev.off()
 ```
 
-The plot is by default saved to the current directory that is being worked in. The file can be downloaded from the server or you can view a prepared file [here](https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/UGP2.pdf). 
+The plot is saved to the current working directory. View the plot in your web directory or view the prepared version [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/UGP2.pdf). 
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
@@ -141,12 +136,9 @@ The top of the image shows the different transcripts available for the gene.
 </details>
 ::::
 
-\
+Bambu also has options to create other plots like PCA and heatmaps. 
 
-
-There are also options to create other plots like PCA and heatmaps. 
-
-Because we have the data for all samples using PacBio, Nanopore Direct sequencing and Nanopore RNA sequencing, we have prepared a set of data which contain the results for all samples using bambu. 
+Because we have data for all samples using PacBio, Nanopore Direct sequencing and Nanopore RNA sequencing, we have prepared a set of data which contain the results for all samples using bambu. 
 
 To load the data into R, run the following command. 
 
@@ -154,13 +146,14 @@ To load the data into R, run the following command.
 seall <- readRDS(file="bamburesults_allsamples.rds")
 ```
 
-To be able to create a pca plot which shows information on groups, group information needs to be added to the R object that we want to look at. Within bambu, information of samples is captures in colData(seall). 
-
+To create a pca plot which shows information on groups, group information needs to be added to the R object that we want to look at. Within bambu, information of samples is captured in colData(seall). 
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Run `colData(seall)` in R. What information is currently available for the samples?
+Run `colData(seall)` in R. 
+
+What information is currently available for the samples?
 <details>
 
 <summary>Solution</summary>
@@ -175,15 +168,13 @@ The only information currently available is the names of the samples.
 </details>
 ::::
 
-\
-
 There are several ways to add data, for now we will add data manually. This is normally not recommended, as mistakes are easily made, but for this example it will do.  
 
 ``` bash
 colData(seall)$seqtype <- c("direct", "nanopore", "pacbio","direct", "nanopore", "pacbio","direct", "nanopore", "pacbio","direct", "nanopore", "pacbio","direct", "nanopore", "pacbio","direct", "nanopore", "pacbio","direct", "nanopore", "pacbio","direct", "nanopore", "pacbio")
 ```
 
-Now, lets for creating a pca plot.
+Now, let's create a pca plot.
 
 ``` bash
 pdf("pcaseall.pdf")
@@ -191,7 +182,7 @@ plotBambu(seall, type="pca", "seqtype")
 dev.off()
 ```
 
-Download the result or open the file [here](https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/pcaseall.pdf).
+View the plot in your web folder or view a prepared version [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/pcaseall.pdf).
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
@@ -199,5 +190,3 @@ Download the result or open the file [here](https://bifx-core3.bio.ed.ac.uk/~hde
 Is there anything that stands out to you from the pca plot?
 
 ::::
-
-\

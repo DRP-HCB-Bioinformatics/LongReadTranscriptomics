@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Long Read Transcriptomics</title>
+<title>Transcript Quantification – Long Read Transcriptomics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Long Read Transcriptomics</h1>
+<h1 class="title">Transcript Quantification</h1>
 </div>
 
 
@@ -211,20 +211,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
-<p>For transcript quantification, again there are several tools that can be used. Some tools will need you to do transcript identification first (FLAIR), but there are many others that can work from mapped reads. These tools will need mapped reads, a reference genome sequence and a reference annotation. During this session we will take a look at Bambu, that can quantify reads on a transcript or gene level.</p>
+<p>For transcript quantification, again there are several tools that can be used. Some tools require transcript identification first (FLAIR), but there are many others that can work directly from mapped reads. During this session we will take a look at <strong>Bambu</strong>, a tool for quantifying reads on a transcript or gene level.</p>
 <section id="bambu" class="level2">
 <h2 class="anchored" data-anchor-id="bambu">Bambu</h2>
-<p>In some cases, we specifically want to get counts per gene for a version of an annotation, without looking for new isoforms or transcripts. Though Bambu is capable of also identifying new isoforms and transcripts, mainly used organisms with a good annotation already present. In this case we will look at how to get counts for a specific annotation version.</p>
-<p>To able to do this, we again need the mapped reads, a genome sequence and a genome annotation.</p>
-<p>Bambu is based within R, a tool often used for different types of analysis. The first step that needs to be done is start R. Bambu needs one of the newest versions of R, which we have installed for you on the server.</p>
-<p>R works from the current directory that you start R from. Meaning that it will have access to the data within the folder and will write to the folder if we create any files.</p>
+<p>In some cases, we specifically want to get counts per gene for a version of an annotation, without looking for new isoforms or transcripts. Though Bambu is capable of also identifying new isoforms and transcripts, it is mainly used with organisms that already have a high quality annotation. To able to do this, we again need the mapped reads, a genome sequence and a genome annotation.</p>
+<p>Bambu is based within R, a popular programming language used in bioinformatics. Bambu requires one of the latest versions of R, which we have installed for you on the server.</p>
+<p>R runs from your current working directory, meaning it has access to the data within that folder and will write any output files to that folder.</p>
+<p>Start R by running the following command in the terminal.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/library/training/LRT_Tool/R-4.6.0/bin/R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To be able to run commands for Bambu, the package needs to be installed within R. Packages are generally straight forward to install.</p>
-<p><em><strong>Note</strong>: You won’t need to run this when working on the server</em></p>
+<p>The Bambu package needs to be installed within R. <em><strong>Note</strong>: You won’t need to run this when working on the server.</em></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">BiocManager::install</span><span class="er">(</span><span class="st">"bambu"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Once packages are installed, they still need to activated.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">bambu</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To run Bambu, files need to be loaded. Multiple samples can be loaded at the same time. The larger the amount of samples, the longer the process will take. Running bambu on a server is advised to speed up the process.</p>
+<p>The command below lists all of the input files for bambu by looking for files ending with <code>pacbio.chromosome2.bam</code>. Multiple samples can be loaded at the same time and the larger the number of samples, the longer the process will take. Running bambu on a server is advised to speed up this process.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">files</span> <span class="op">&lt;</span>- list.files<span class="er">(</span><span class="va">path</span><span class="op">=</span><span class="st">"./"</span>, <span class="va">pattern</span><span class="op">=</span><span class="st">"pacbio.chromosome2.bam$"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="challenge">
 <h2 class="anchored">
@@ -245,15 +244,13 @@ Solution
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>We can run bambu straight away. Bambu will prepare the annotation for easier access. If you use the genome often, the annotation can be prepared before hand and saved into an object to save time.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">se</span> <span class="op">&lt;</span>- bambu<span class="er">(</span><span class="ex">reads</span> = files, annotations = <span class="st">"../GCF_000001405.40_GRCh38.p14_genomic.gtf"</span>, genome = <span class="st">"../GCF_000001405.40_GRCh38.p14_genomic.fna"</span>, ncore = 12, discovery = FALSE<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><em><strong>Note</strong>: This will take several minutes</em></p>
-<p>Once bambu is finished, we can write the output to a folder named <code>bambu</code>.</p>
+<p>We can run bambu with a single command. Bambu first prepares the annotation for efficient access. If you use the genome often, the annotation can be prepared beforehand and saved into an R object to save time.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">se</span> <span class="op">&lt;</span>- bambu<span class="er">(</span><span class="ex">reads</span> = files, annotations = <span class="st">"../GCF_000001405.40_GRCh38.p14_genomic.gtf"</span>, genome = <span class="st">"../GCF_000001405.40_GRCh38.p14_genomic.fna"</span>, ncore = 5, discovery = FALSE<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em><strong>Note</strong>: This will take several minutes.</em></p>
+<p>Once bambu has finished, we can write the output to a folder named <code>bambu</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">writeBambuOutput</span><span class="er">(</span><span class="ex">se,</span> path = <span class="st">"./bambu/"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Open up a <strong>new terminal</strong> to take a look at the resulting files. We want to keep the R session running to be able to continue working with the data later on.</p>
-<p>Several files are generated, the most important are the files starting with <code>counts</code>. Bambu will generate files for both transcript level and gene level. Depending on the analysis, either file can be used.</p>
+<p>Several files are generated, the most important are the files starting with <code>counts</code>. Bambu generates files for both transcript level and gene level. Depending on the analysis, either file can be used.</p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -268,20 +265,18 @@ Solution
 <h2 class="anchored">
 <i class="far fa-eye"></i> Solution:
 </h2>
-<p>Remember that with <code>wc</code> we can check how many lines a file has.</p>
+<p>Remember that we can check how many lines a file has with <code>wc -l</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> counts_transcript.txt</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> counts_gene.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>Bambu has another great functionality which is to visualise genes and the different transcripts found for the genes plus the counts of the transcripts per sample. This can help visualise if you have specific transcripts that are being used between groups. Because we are working on a server, that means we cannot directly see the plots, however we can easily save them to a pdf file.</p>
+<p>Bambu has the functionality to visualise genes, the different transcripts found for a gene, and the per sample read counts for each transcript. This can help you to visualise specific transcripts that are being used differently between sample groups. Because we are working on the command line, we cannot directly see the plots, however we can easily save them to a pdf file.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pdf</span><span class="er">(</span><span class="st">"UGP2.pdf"</span><span class="kw">)</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plotBambu</span><span class="er">(</span><span class="ex">se,</span> type = <span class="st">"annotation"</span>, gene_id = <span class="st">"UGP2"</span><span class="kw">)</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The plot is by default saved to the current directory that is being worked in. The file can be downloaded from the server or you can view a prepared file <a href="https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/UGP2.pdf">here</a>.</p>
+<p>The plot is saved to the current working directory. View the plot in your web directory or view the prepared version <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/UGP2.pdf">here</a>.</p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -300,18 +295,17 @@ Solution
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>There are also options to create other plots like PCA and heatmaps.</p>
-<p>Because we have the data for all samples using PacBio, Nanopore Direct sequencing and Nanopore RNA sequencing, we have prepared a set of data which contain the results for all samples using bambu.</p>
+<p>Bambu also has options to create other plots like PCA and heatmaps.</p>
+<p>Because we have data for all samples using PacBio, Nanopore Direct sequencing and Nanopore RNA sequencing, we have prepared a set of data which contain the results for all samples using bambu.</p>
 <p>To load the data into R, run the following command.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seall</span> <span class="op">&lt;</span>- readRDS<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"bamburesults_allsamples.rds"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To be able to create a pca plot which shows information on groups, group information needs to be added to the R object that we want to look at. Within bambu, information of samples is captures in colData(seall).</p>
+<p>To create a pca plot which shows information on groups, group information needs to be added to the R object that we want to look at. Within bambu, information of samples is captured in colData(seall).</p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
-Run <code>colData(seall)</code> in R. What information is currently available for the samples?
+<p>Run <code>colData(seall)</code> in R.</p>
+What information is currently available for the samples?
 <details>
 <summary>
 Solution
@@ -325,23 +319,19 @@ Solution
 </div>
 </details>
 </div>
-<p><br>
-</p>
 <p>There are several ways to add data, for now we will add data manually. This is normally not recommended, as mistakes are easily made, but for this example it will do.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">colData</span><span class="er">(</span><span class="ex">seall</span><span class="kw">)</span><span class="va">$seqtype</span> <span class="op">&lt;</span>- c<span class="er">(</span><span class="st">"direct"</span><span class="ex">,</span> <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span>,<span class="st">"direct"</span>, <span class="st">"nanopore"</span>, <span class="st">"pacbio"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Now, lets for creating a pca plot.</p>
+<p>Now, let’s create a pca plot.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pdf</span><span class="er">(</span><span class="st">"pcaseall.pdf"</span><span class="kw">)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plotBambu</span><span class="er">(</span><span class="ex">seall,</span> type=<span class="st">"pca"</span>, <span class="st">"seqtype"</span><span class="kw">)</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Download the result or open the file <a href="https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/pcaseall.pdf">here</a>.</p>
+<p>View the plot in your web folder or view a prepared version <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/pcaseall.pdf">here</a>.</p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
 <p>Is there anything that stands out to you from the pca plot?</p>
 </div>
-<p><br>
-</p>
 
 
 </section>

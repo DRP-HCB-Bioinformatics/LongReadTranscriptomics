@@ -1,5 +1,5 @@
 ---
-title: "Long Read Transcriptomics"
+title: "Quality Control"
 ---
 
 ```{=html}
