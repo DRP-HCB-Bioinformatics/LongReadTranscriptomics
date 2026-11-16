@@ -119,7 +119,7 @@ cd LRT
 NanoPlot -t 8 --ubam hifi_reads.bcM0002_200K.bam --plot dots -o NanoPlot_hifi
 ```
 
-Navigate to your web directory to view the results. Alternatively, you can look at this [pre-generated Nanoplot report](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_hifi/NanoPlot-report.html)
+Navigate to your web directory to view the results. Alternatively, you can look at this [pre-generated Nanoplot report](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_hifi/NanoPlot-report.html).
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
@@ -217,11 +217,9 @@ isoseq refine segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam isoseq.fasta segmente
 
 ### Mapping to a reference genome
 
-In order to identify and quantify isoforms, the reads first need to be mapped to a reference genome. For long reads, the best mapper is [minimap2](https://github.com/lh3/minimap2). 
+In order to identify and quantify isoforms, the reads first need to be mapped to a reference genome. For long reads, the best mapper is [minimap2](https://github.com/lh3/minimap2). PacBio has its own implementation of minimap2, named [pbmm2](https://github.com/PacificBiosciences/pbmm2), which is optimised for PacBio. However, in this case, we will use the base version of minimap2. 
 
-PacBio has an implementation for it, named [pbmm2](https://github.com/PacificBiosciences/pbmm2), which can be helpful, however in this case we will use the base version of minimap2. 
-
-Minimap2 requires reads in fastq format, so we first need to transform our data to a fastq file.
+Minimap2 requires reads in a fastq file, so we first need to transform our data to fastq format.
 
 ``` bash
 samtools bam2fq segmented.refined.bam | pigz -c > segmented.refined.fastq.gz
@@ -235,7 +233,7 @@ minimap2 -t 5 -a -x splice:hq -s 40 -G 350k --MD --secondary=no GCF_000001405.40
 
 Here we provide `GCF_000001405.40_GRCh38.p14_genomic.fna` as the reference, which is the human genome assembly [GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). The `-x` parameter tells minimap2 which type of reads we are mapping, in this case `splice:hq` is used for high quality PacBio spliced reads. You can explore the other input options to minimap2 by typing `minimap2 --help`. The output of minimap2 is piped to `samtools view` to convert the output to bam format, and then piped to `samtools sort` to sort the reads by their position in the genome. The final output is written to `refined.mapped.bam`.
 
-***Note:** This will take some time, for today it can be skipped if it takes too long, data has been prepared for you for next steps*
+***Note:** This will take some time, for today it can be skipped if it takes too long, data has been prepared for you for next steps.*
 
 At this point, the PacBio data is ready for downstream processing, whether that is identification of new isoforms and genes or quantification of transcripts. We will get into both of these applications in the next session.
 
@@ -247,7 +245,7 @@ Before we continue processing the data, let's take a look at the NanoPore sequen
 NanoPlot -t 8 --fastq nanopore.fastq.gz --plot dots -o NanoPlot_nanopore
 ```
 
-The results can be viewed in your web directory or  [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_nanopore/NanoPlot-report.html)
+The results can be viewed in your web directory or  [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_nanopore/NanoPlot-report.html).
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
