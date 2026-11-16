@@ -6,27 +6,112 @@ title: "Long Read Transcriptomics"
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 ```
 
-As long-read sequencing has become more affordable and widely accessible, transcriptomics has emerged as one of the key fields benefiting from this technology. The option to sequence full-length transcripts and isoforms provides a clear view of transcript structure, alternative splicing, and the complexity of gene expression. In this session we will look at and discuss the differences between Nanopore and PacBio. We will also look into identification of new isoforms or genes, and look into quantification of the genes for both model and non model organisms.
+As long-read sequencing has become more affordable and widely accessible, transcriptomics has emerged as one of the key fields to benefit from this technology. The option to sequence full-length transcripts provides a clear view of transcript structure, alternative splicing, and the complexity of gene expression. In this session, we will learn to identify novel transcripts, quantify gene expression in both model and non model organisms, and discuss the differences between Nanopore and PacBio sequencing.
 
-For the quality control and model organism data, we will use Nanopore data and PacBio data available for the same samples. The raw data is from the following publication: “Benchmarking long-read RNA-sequencing technologies with LongBench: a cross-platform reference dataset profiling cancer cell lines with bulk and single-cell approaches” https://www.biorxiv.org/content/10.1101/2025.09.11.675724v2.full.pdf
+## Connecting to the Server
 
-The following commands will copy the data into your home if you are on the bifxcore server.
+Today, we will connect to one of the DRP servers to analyse long read transcriptomics data.
+
+To access the server, you will need to use the Terminal application on your local machine. Windows, Mac and Linux computers all have a built in Terminal application. There are also many [third party Terminal applications](https://github.com/cdleon/awesome-terminals) if you desire a more stylish or interactive setup.
 
 ``` bash
-cp -R /library/training/ASD/04_LRT ./LRT
+ssh <UUN>@bifx-core1.bio.ed.ac.uk
+```
+You might be asked if you trust the server, make sure to answer yes. Once you've entered your password you should connect to the server and see something like the following:
+
+``` bash
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-117-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+################################################################################
+THIS DEVICE IS PART OF A PRIVATE NETWORK.
+
+Unauthorised access or use of this equipment is prohibited 
+and constitutes an offence under the Computer Misuse Act 1990.
+If you are not authorised to use this system, terminate this 
+session now.
+
+All activity on this system is monitored and recorded.
+
+Please direct any queries to IS.Helpline@ed.ac.uk.
+
+################################################################################
+<UUN>@bifx-core1:~$
+```
+This prompt shows that you are logged in to the bifx-core1 bioinformatics server, and that you are in your home directory (which is referred to using the ~ character on Linux systems).
+
+Please see our [website](https://drp-hcb-bioinformatics.github.io/DRP-HCB-Bioinformatics/user_policy.html) for more specific instructions on using the DRP-HCB bioinformatics servers.
+
+## Set up a web directory
+
+During this workshop, we will generate visual outputs that are best viewed in a web browser. Accounts on the DRP-HCB bioinformatics servers have access to a web server to allow you to view your files online.
+
+If you don't have access to a web server, you can still view the files on your local machine by downloading them using [FileZilla](https://filezilla-project.org/) or another file transfer program.
+
+Create a `public_html` directory in your home. This will allow you to view files directly on the web.
+
+``` bash
+cd
+mkdir ~/public_html
+``` 
+Running `cd` insures you are in your home space (although you should be there already).
+
+You should now be able to access files through 
+`https://bifx-core3.bio.ed.ac.uk/~UUN` replacing the UUN with your own UUN.
+
+**Note:** This is open to the public, so do not use this directory to store any private or sensitive information. You should NOT make your entire home folder visible via public_html.
+
+## Set up a workshop directory
+
+Now create a new folder in your home directory. This is the working directory we will use for the workshop.
+
+``` bash
+cd
+mkdir long_read_transcriptomics
 ```
 
-Or if you are working on another computer or server.
+Move into your `public_html` directory and create a symbolic link to the workshop directory. This will allow you to view the files generated during the workshop in your web browser.
 
 ``` bash
-wget https://bifx-core3.bio.ed.ac.uk/training/ASD/LRT.tar.gz
+cd ~/public_html
+ln -s ~/long_read_transcriptomics . 
+```
 
+## Data
+
+We will begin by looking at Nanopore and PacBio sequencing performed on the same samples. The raw data comes from the following publication:
+
+[*Benchmarking long-read RNA-sequencing technologies with LongBench: A cross-platform reference dataset profiling cancer cell lines with bulk and single-cell approaches*](https://www.biorxiv.org/content/10.1101/2025.09.11.675724v2.full.pdf)
+
+Move into your workshop directory.
+
+``` bash
+cd ~/long_read_transcriptomics
+```
+
+The following commands will copy the data into this folder if you are on the DRP-HCB bioinformatics server.
+
+``` bash
+cp -R /library/training/ASD/04_LRT/data ./LRT
+```
+
+If you are working on another computer or server, you can download the data as a tar.gz file and extract it using the following commands.
+
+``` bash
+## No need to run this if working on the DRP-HCB bioinformatics server
+wget https://bifx-core3.bio.ed.ac.uk/training/ASD/LRT.tar.gz
 tar -xzvf LRT.tar.gz
 ```
 
 ## PacBio
 
-PacBio can be special when it comes to long read transcriptomics. Besides being able to sequence the transcriptome as is, PacBio has developed a method, called the Kinnex protocol, that will create longer reads by joining multiple transcriptions together. This is done to maximize the output, however this can make downstream processing more complex. In most cases the data which we get from a provider is separated into separate transcripts, however confirming this has happened is important.
+PacBio is a long read sequencing technology that uses a single molecule real-time (SMRT) sequencing approach. This allows for the generation of long reads, which can be used to sequence full-length transcripts.
+
+### Quality control
+
+Because PacBio reads are long, sequencing short transcripts can be inefficient. To overcome this, PacBio uses a method called the **Kinnex** protocol, which joins multiple transcripts together to create longer reads. This maximises the sequencing output but can make downstream processing more complex. In most cases the data which we get from a provider is separated into separate transcripts, however confirming this has happened is important.
 
 ``` bash
 cd LRT
@@ -34,12 +119,12 @@ cd LRT
 NanoPlot -t 8 --ubam hifi_reads.bcM0002_200K.bam --plot dots -o NanoPlot_hifi
 ```
 
-The results can be downloaded using FileZilla or they can be viewed [here](https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_hifi/NanoPlot-report.html). 
+Navigate to your web directory to view the results. Alternatively, you can look at this [pre-generated Nanoplot report](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_hifi/NanoPlot-report.html)
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Take a look at the NanoPlot results. Is the average length of the reads expected for transcriptome reads?
+Take a look at the NanoPlot results. How does the average length of the reads compare to average transcript length?
 <details>
 
 <summary>Solution</summary>
@@ -47,32 +132,34 @@ Take a look at the NanoPlot results. Is the average length of the reads expected
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-On average, the length of transcriptome sequences is around 2kb for humans. The average of the reads here is 16kb, much larger than expected. 
+On average, the length of transcript sequences is around 2kb for humans. The average of the reads here is 16kb, much larger than expected. 
 :::
 
 </details>
 ::::
 
-\
+PacBio has an optimal read length of around 18kb. If your average read lengths are close to this, then most likely the data is still joined together. We can use a tool called `skera` to separate transcripts by searching for the adapter sequences between them. These adapters are stored in a FASTA file and can be downloaded from the [PacBio website](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-MAS_adapters/). The adapters are already available to you in the file `mas8.fasta`.  
 
-PacBio has an optimal read length of around 18kb. This means if we find lengths that are on average around that length, most likely the data is still joined together. To be able to separate the transcripts, `skera` needs to be used. `skera` uses tags between the transcripts to separate them. For this it uses a fasta file that contains the sequences for the adapters and can be downloaded from the [PacBio website](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-MAS_adapters/). Today, the adapters are already downloaded and can be found in `mas8.fasta`. 
+``` bash
+less mas8.fasta
+```
 
 ``` bash
 skera split hifi_reads.bcM0002_200K.bam mas8.fasta segmented.bam
 ```
 
-To see what this has done to the reads, NanoPlot can be used to look at the results.  
+Run NanoPlot again to see what effect this has on the reads.
 
 ``` bash
 NanoPlot -t 8 --ubam segmented.bam --plot dots -o NanoPlot_segmented
 ```
 
-The results can be view [here](https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_segmented/NanoPlot-report.html). 
+View the results in your web directory or [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_segmented/NanoPlot-report.html). 
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Compare the results to the previous set. How have the results changed?
+How have the results changed?
 <details>
 
 <summary>Solution</summary>
@@ -80,26 +167,30 @@ Compare the results to the previous set. How have the results changed?
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-On average, the length of transcriptome sequences is now 2k, which is expected for this sample. The total number of reads has gone up, because the reads have been split into multiple. 
+On average, the length of transcript sequences is now 2k, which is expected for this sample. The total number of reads has gone up, because the reads have been split into multiple sections. 
 :::
 
 </details>
 ::::
 
-\
+Whether the Kinnex protocol was used or not, the reads will contain primer sequences which need to be removed before the data can be used for downstream analysis. The primer sequences typically contain sequencing adapters and sequencing barcodes used to identify samples.
 
-Whether the Kinnex protocol was used or not, the data will contain primers which need to be remove or it contains barcodes that can identify samples. To remove the adapters and separate samples by barcodes, `lima` needs to be used in combination with the barcodes used. In this case, primers can be found in `isoseq.fasta`. Depending on the protocol used, a different fasta file should be used. If in doubt, check with the provider which barcodes have been used. 
+We will use a tool called `lima` to remove the adapters and separate samples by barcode.  The sequencing primers can be found in `isoseq.fasta` and are specific to this sequencing protocol. If you have your own data, check which primers and barcodes have been used. 
+
+```bash
+less isoseq.fasta
+```
 
 ``` bash
 lima segmented.bam isoseq.fasta segmented.fl.bam --isoseq --peek-guess
 ``` 
 
-If there are multiple samples, multiple files will be created. 
+If the sequencing library contains multiple samples, lima will separate the reads into different file sets. In this case, there is only one sample, and therefore only one set of files is generated.
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Take a look at the files generated. In this case there is only one sample. Which file contains our reads?
+Take a look at the files generated. Which file contains our reads?
 <details>
 
 <summary>Solution</summary>
@@ -111,45 +202,52 @@ Take a look at the files generated. In this case there is only one sample. Which
 ls
 ``` 
 
-There are a number of files generated, including a report of the results. The reads for our sample are in `segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam`. The naming of the file reflex the name of the primers or barcodes within the fasta file used during `lima`.
+There are a number of files generated, including a report of the results. The reads for our sample are in `segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam`. The naming of the file reflects the name of the primers or barcodes within the fasta file used during `lima`.
 
 :::
 
 </details>
 ::::
 
-\
-
-There is one more step to do to make sure the data is ready for analysis. The step to do is a refinement, which will make sure all reads have been properly separated, primers removed and if applicable can check if reads have a polyA tail and remove the tail from the reads. 
+The final preparation step is to perform a refinement. This makes sure all of the reads have been properly separated, have their primers removed and if applicable can check if reads have a polyA tail and remove this from the reads.
 
 ``` bash
 isoseq refine segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam isoseq.fasta segmented.refined.bam --require-polya
 ``` 
 
-The final step before being able to identify or quantify isoforms, the reads needs to be mapped versus the reference genome. For long reads, the best mapper is [minimap2](https://github.com/lh3/minimap2). PacBio has an implementation for it, named [pbmm2](https://github.com/PacificBiosciences/pbmm2), which can be helpful, however in this case we will use the base version of minimap2. For minimap2, the data will need to be in fastq format, and therefore we will need to transform our data to a fastq file. 
+### Mapping to a reference genome
+
+In order to identify and quantify isoforms, the reads first need to be mapped to a reference genome. For long reads, the best mapper is [minimap2](https://github.com/lh3/minimap2). 
+
+PacBio has an implementation for it, named [pbmm2](https://github.com/PacificBiosciences/pbmm2), which can be helpful, however in this case we will use the base version of minimap2. 
+
+Minimap2 requires reads in fastq format, so we first need to transform our data to a fastq file.
 
 ``` bash
 samtools bam2fq segmented.refined.bam | pigz -c > segmented.refined.fastq.gz
 ```
-Once the reads are in fastq format, minimap2 can map them to the reference genome. 
+
+We use samtools bam2fq to convert the bam file to fastq format, and pigz to compress the output. Once the reads are in fastq format, minimap2 can map them to the reference genome. 
 
 ``` bash
-minimap2 -t 24 -a -x splice:hq -s 40 -G 350k --MD --secondary=no GCF_000001405.40_GRCh38.p14_genomic.fna segmented.refined.fastq.gz | samtools view -hb - | samtools sort - > refined.mapped.bam
+minimap2 -t 5 -a -x splice:hq -s 40 -G 350k --MD --secondary=no GCF_000001405.40_GRCh38.p14_genomic.fna segmented.refined.fastq.gz | samtools view -hb - | samtools sort - > refined.mapped.bam
 ```
+
+Here we provide `GCF_000001405.40_GRCh38.p14_genomic.fna` as the reference, which is the human genome assembly [GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). The `-x` parameter tells minimap2 which type of reads we are mapping, in this case `splice:hq` is used for high quality PacBio spliced reads. You can explore the other input options to minimap2 by typing `minimap2 --help`. The output of minimap2 is piped to `samtools view` to convert the output to bam format, and then piped to `samtools sort` to sort the reads by their position in the genome. The final output is written to `refined.mapped.bam`.
 
 ***Note:** This will take some time, for today it can be skipped if it takes too long, data has been prepared for you for next steps*
 
-PacBio data is then ready for processing, whether that is identification of new isoforms and genes or quantification of transcripts. We will get into both of these applications in the next session.
+At this point, the PacBio data is ready for downstream processing, whether that is identification of new isoforms and genes or quantification of transcripts. We will get into both of these applications in the next session.
 
 ## NanoPore
 
-Before we continue with processing of the data, we will take a look at NanoPore data and how different it is when it comes to preprocessing. Nanopore has two different methods for generating reads for the transcriptome. The first method transforms the RNA into cDNA and uses PCR to add adapters to the reads. The second method takes the transcriptome as is, attaches an adapter by ligation, and is sequenced on a specific RNA flowcell. Both methods have their pros and cons, and in terms of processing these will be slightly different when it comes to mapping the reads, which we will get into later. However the preprocessing is the same between the two methods. The data for NanoPore for both methods will be reported in BAM or FASTQ format. Either of these can be checked with NanoPlot.
+Before we continue processing the data, let's take a look at the NanoPore sequencing and the different steps involved in pre-processing. Nanopore has two different methods for generating reads for the transcriptome. The first method transforms the RNA into cDNA and uses PCR to add adapters to the reads. The second method takes the RNA as is, attaches an adapter by ligation, and is sequenced on a specific RNA flowcell. Both methods have their pros and cons, and in terms of processing, these differ slightly when it comes to mapping the reads, which we will get into later. However, the pre-processing is the same between the two methods. The data for NanoPore for both methods will be reported in BAM or FASTQ format. Either of these can be checked with NanoPlot.
 
 ``` bash
 NanoPlot -t 8 --fastq nanopore.fastq.gz --plot dots -o NanoPlot_nanopore
 ```
 
-The results can be viewed [here](https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_nanopore/NanoPlot-report.html)
+The results can be viewed in your web directory or  [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_nanopore/NanoPlot-report.html)
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
@@ -163,24 +261,22 @@ Take a look at the results generated and compare to the PacBio results. How do t
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-There are some difference, before processing the data from Nanopore is already in line with the expected lengths for transcripts. The average quality of reads is lower compared to PacBio. There is more variation in lengths found. 
+The Nanopore sequencing is already in line with the expected lengths for transcripts. The average quality of reads is lower compared to PacBio. There is more variation in lengths found. 
 
 :::
 
 </details>
 ::::
 
-\
+Depending on the results and species that is being sequenced, we might want to perform quality filtering. If there are multiple species within the sample, especially if those species are closely related, removing low quality reads can improve the results.
 
-Depending on the results and species that is being sequenced, we might want to do a quality filtering. If there are multiple species within the sample, especially if those species are closely related, removing low quality reads can improve the results.
-
-Often when filtering data, we want to keep highly accurate data. Data that is above a quality of 20 is considered to be of high quality. With Nanopore this is often not reached, so to keep the data of high quality but not lose too much data, the cutoff is often set to the mean read quality. In this case the mean quality is 12, using nanoq we can filter out anything below that threshold. 
+Sequencing data that is above a Phred quality score of 20 is considered to be high quality. With Nanopore this is often not reached, so to keep the data of high quality but not lose too much data, the cutoff is often set to the mean read quality. In this case the mean quality is 12, using `nanoq` we can filter out anything below that threshold. 
 
 ``` bash
 nanoq --min-qual 12 -i nanopore.fastq.gz -o nanopore.trimmed.fastq.gz
 ```
 
-Nanoq after filtering will report how many reads are left after filtering and the general statistics on the resulting reads. This includes the following: number of reads, number of bases, N50, longest read, shortest read, mean length, median length, mean quality and median quality. The data is now ready for mapping.
+Nanoq will report how many reads are left after filtering and the general statistics on the resulting reads. This includes the following: Number of reads, number of bases, N50, longest read, shortest read, mean length, median length, mean quality and median quality. The data is now ready for mapping.
 
 To check the results, run NanoPlot on the trimmed results. 
 
@@ -188,12 +284,12 @@ To check the results, run NanoPlot on the trimmed results.
 NanoPlot -t 8 --fastq nanopore.trimmed.fastq.gz --plot dots -o NanoPlot_trimmed
 ```
 
-Check the effect of the trimming [here](https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_trimmed/NanoPlot-report.html).
+View the report in your web directory or [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_trimmed/NanoPlot-report.html).
 
-Finally, similar to PacBio, the reads need to be mapped against the reference genome. Again we can use minimap2 for that. The command is slightly different. 
+Finally, similar to PacBio, the reads need to be mapped against the reference genome. Again we can use minimap2, but the command is slightly different. In this case, we are mapping RNA reads, so we use `splice`. The `-uf` parameter tells minimap2 that the reads are from a direct RNA sequencing experiment.
 
 ``` bash
-minimap2 -t 12 -a -x splice -s 40 -G 350k -uf --MD --secondary=no GCF_000001405.40_GRCh38.p14_genomic.fna nanopore.trimmed.fastq.gz | samtools view -hb - | samtools sort - > nanopore.mapped.bam
+minimap2 -t 5 -a -x splice -s 40 -G 350k -uf --MD --secondary=no GCF_000001405.40_GRCh38.p14_genomic.fna nanopore.trimmed.fastq.gz | samtools view -hb - | samtools sort - > nanopore.mapped.bam
 ```
 
-Once mapped, the data is ready to be identified or quantified. 
+Once mapped, the data is ready for transcript identification and quantification.

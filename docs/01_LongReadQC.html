@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,13 +12,10 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -78,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -187,7 +184,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pacbio" id="toc-pacbio" class="nav-link active" data-scroll-target="#pacbio">PacBio</a></li>
+  <li><a href="#connecting-to-the-server" id="toc-connecting-to-the-server" class="nav-link active" data-scroll-target="#connecting-to-the-server">Connecting to the Server</a></li>
+  <li><a href="#set-up-a-web-directory" id="toc-set-up-a-web-directory" class="nav-link" data-scroll-target="#set-up-a-web-directory">Set up a web directory</a></li>
+  <li><a href="#set-up-a-workshop-directory" id="toc-set-up-a-workshop-directory" class="nav-link" data-scroll-target="#set-up-a-workshop-directory">Set up a workshop directory</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#pacbio" id="toc-pacbio" class="nav-link" data-scroll-target="#pacbio">PacBio</a>
+  <ul class="collapse">
+  <li><a href="#quality-control" id="toc-quality-control" class="nav-link" data-scroll-target="#quality-control">Quality control</a></li>
+  <li><a href="#mapping-to-a-reference-genome" id="toc-mapping-to-a-reference-genome" class="nav-link" data-scroll-target="#mapping-to-a-reference-genome">Mapping to a reference genome</a></li>
+  </ul></li>
   <li><a href="#nanopore" id="toc-nanopore" class="nav-link" data-scroll-target="#nanopore">NanoPore</a></li>
   </ul>
 </nav>
@@ -215,26 +220,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
-<p>As long-read sequencing has become more affordable and widely accessible, transcriptomics has emerged as one of the key fields benefiting from this technology. The option to sequence full-length transcripts and isoforms provides a clear view of transcript structure, alternative splicing, and the complexity of gene expression. In this session we will look at and discuss the differences between Nanopore and PacBio. We will also look into identification of new isoforms or genes, and look into quantification of the genes for both model and non model organisms.</p>
-<p>For the quality control and model organism data, we will use Nanopore data and PacBio data available for the same samples. The raw data is from the following publication: “Benchmarking long-read RNA-sequencing technologies with LongBench: a cross-platform reference dataset profiling cancer cell lines with bulk and single-cell approaches” https://www.biorxiv.org/content/10.1101/2025.09.11.675724v2.full.pdf</p>
-<p>The following commands will copy the data into your home if you are on the bifxcore server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-R</span> /library/training/LRT ./</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Or if you are working on another computer or server.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://bifx-core3.bio.ed.ac.uk/~hdeweer/LRT.tar.gz</span>
+<p>As long-read sequencing has become more affordable and widely accessible, transcriptomics has emerged as one of the key fields to benefit from this technology. The option to sequence full-length transcripts provides a clear view of transcript structure, alternative splicing, and the complexity of gene expression. In this session, we will learn to identify novel transcripts, quantify gene expression in both model and non model organisms, and discuss the differences between Nanopore and PacBio sequencing.</p>
+<section id="connecting-to-the-server" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-to-the-server">Connecting to the Server</h2>
+<p>Today, we will connect to one of the DRP servers to analyse long read transcriptomics data.</p>
+<p>To access the server, you will need to use the Terminal application on your local machine. Windows, Mac and Linux computers all have a built in Terminal application. There are also many <a href="https://github.com/cdleon/awesome-terminals">third party Terminal applications</a> if you desire a more stylish or interactive setup.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@bifx-core1.bio.ed.ac.uk</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You might be asked if you trust the server, make sure to answer yes. Once you’ve entered your password you should connect to the server and see something like the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Welcome</span> to Ubuntu 24.04.4 LTS <span class="er">(</span><span class="ex">GNU/Linux</span> 6.8.0-117-generic x86_64<span class="kw">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> LRT.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">*</span> Documentation:  https://help.ubuntu.com</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">*</span> Management:     https://landscape.canonical.com</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">*</span> Support:        https://ubuntu.com/pro</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">################################################################################</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">THIS</span> DEVICE IS PART OF A PRIVATE NETWORK.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Unauthorised</span> access or use of this equipment is prohibited </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">and</span> constitutes an offence under the Computer Misuse Act 1990.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> you are not authorised to use this system, terminate this </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">session</span> now.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">All</span> activity on this system is monitored and recorded.</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Please</span> direct any queries to IS.Helpline@ed.ac.uk.</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">################################################################################</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>UUN<span class="op">&gt;</span>@bifx-core1:~$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This prompt shows that you are logged in to the bifx-core1 bioinformatics server, and that you are in your home directory (which is referred to using the ~ character on Linux systems).</p>
+<p>Please see our <a href="https://drp-hcb-bioinformatics.github.io/DRP-HCB-Bioinformatics/user_policy.html">website</a> for more specific instructions on using the DRP-HCB bioinformatics servers.</p>
+</section>
+<section id="set-up-a-web-directory" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-a-web-directory">Set up a web directory</h2>
+<p>During this workshop, we will generate visual outputs that are best viewed in a web browser. Accounts on the DRP-HCB bioinformatics servers have access to a web server to allow you to view your files online.</p>
+<p>If you don’t have access to a web server, you can still view the files on your local machine by downloading them using <a href="https://filezilla-project.org/">FileZilla</a> or another file transfer program.</p>
+<p>Create a <code>public_html</code> directory in your home. This will allow you to view files directly on the web.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> ~/public_html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Running <code>cd</code> insures you are in your home space (although you should be there already).</p>
+<p>You should now be able to access files through <code>https://bifx-core3.bio.ed.ac.uk/~UUN</code> replacing the UUN with your own UUN.</p>
+<p><strong>Note:</strong> This is open to the public, so do not use this directory to store any private or sensitive information. You should NOT make your entire home folder visible via public_html.</p>
+</section>
+<section id="set-up-a-workshop-directory" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-a-workshop-directory">Set up a workshop directory</h2>
+<p>Now create a new folder in your home directory. This is the working directory we will use for the workshop.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> long_read_transcriptomics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Move into your <code>public_html</code> directory and create a symbolic link to the workshop directory. This will allow you to view the files generated during the workshop in your web browser.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/public_html</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> ~/long_read_transcriptomics . </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>We will begin by looking at Nanopore and PacBio sequencing performed on the same samples. The raw data comes from the following publication: <a href="https://www.biorxiv.org/content/10.1101/2025.09.11.675724v2.full.pdf"><em>Benchmarking long-read RNA-sequencing technologies with LongBench: A cross-platform reference dataset profiling cancer cell lines with bulk and single-cell approaches</em></a></p>
+<p>Move into your workshop directory.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/long_read_transcriptomics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The following commands will copy the data into this folder if you are on the DRP-HCB bioinformatics server.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-R</span> /library/training/ASD/04_LRT/data ./LRT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you are working on another computer or server, you can download the data as a tar.gz file and extract it using the following commands.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://bifx-core3.bio.ed.ac.uk/training/ASD/LRT.tar.gz</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> LRT.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="pacbio" class="level2">
 <h2 class="anchored" data-anchor-id="pacbio">PacBio</h2>
-<p>PacBio can be special when it comes to long read transcriptomics. Besides being able to sequence the transcriptome as is, PacBio has developed a method, called the Kinnex protocol, that will create longer reads by joining multiple transcriptions together. This is done to maximize the output, however this can make downstream processing more complex. In most cases the data which we get from a provider is separated into separate transcripts, however confirming this has happened is important.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> LRT</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--ubam</span> hifi_reads.bcM0002_200K.bam <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_hifi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The results can be downloaded using FileZilla or they can be viewed <a href="https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_hifi/NanoPlot-report.html">here</a>.</p>
+<p>PacBio is a long read sequencing technology that uses a single molecule real-time (SMRT) sequencing approach. This allows for the generation of long reads, which can be used to sequence full-length transcripts.</p>
+<section id="quality-control" class="level3">
+<h3 class="anchored">Quality control</h3>
+<p>Because PacBio reads are long, sequencing short transcripts can be inefficient. To overcome this, PacBio uses a method called the <strong>Kinnex</strong> protocol, which joins multiple transcripts together to create longer reads. This maximises the sequencing output but can make downstream processing more complex. In most cases the data which we get from a provider is separated into separate transcripts, however confirming this has happened is important.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> LRT</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--ubam</span> hifi_reads.bcM0002_200K.bam <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_hifi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Navigate to your web directory to view the results. Alternatively, you can look at this <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_hifi/NanoPlot-report.html">pre-generated Nanoplot report</a></p>
 <div class="challenge">
-<h2 class="anchored">
+<h2 class="anchored" data-anchor-id="quality-control">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
-Take a look at the NanoPlot results. Is the average length of the reads expected for transcriptome reads?
+Take a look at the NanoPlot results. How does the average length of the reads compare to average transcript length?
 <details>
 <summary>
 Solution
@@ -244,22 +305,21 @@ Solution
 <h2 class="anchored">
 <i class="far fa-eye"></i> Solution:
 </h2>
-<p>On average, the length of transcriptome sequences is around 2kb for humans. The average of the reads here is 16kb, much larger than expected.</p>
+<p>On average, the length of transcript sequences is around 2kb for humans. The average of the reads here is 16kb, much larger than expected.</p>
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>PacBio has an optimal read length of around 18kb. This means if we find lengths that are on average around that length, most likely the data is still joined together. To be able to separate the transcripts, <code>skera</code> needs to be used. <code>skera</code> uses tags between the transcripts to separate them. For this it uses a fasta file that contains the sequences for the adapters and can be downloaded from the <a href="https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-MAS_adapters/">PacBio website</a>. Today, the adapters are already downloaded and can be found in <code>mas8.fasta</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skera</span> split hifi_reads.bcM0002_200K.bam mas8.fasta segmented.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To see what this has done to the reads, NanoPlot can be used to look at the results.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--ubam</span> segmented.bam <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_segmented</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The results can be view <a href="https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_segmented/NanoPlot-report.html">here</a>.</p>
+<p>PacBio has an optimal read length of around 18kb. If your average read lengths are close to this, then most likely the data is still joined together. We can use a tool called <code>skera</code> to separate transcripts by searching for the adapter sequences between them. These adapters are stored in a FASTA file and can be downloaded from the <a href="https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-MAS_adapters/">PacBio website</a>. The adapters are already available to you in the file <code>mas8.fasta</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> mas8.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skera</span> split hifi_reads.bcM0002_200K.bam mas8.fasta segmented.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run NanoPlot again to see what effect this has on the reads.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--ubam</span> segmented.bam <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_segmented</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>View the results in your web directory or <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_segmented/NanoPlot-report.html">here</a>.</p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
-Compare the results to the previous set. How have the results changed?
+How have the results changed?
 <details>
 <summary>
 Solution
@@ -269,20 +329,20 @@ Solution
 <h2 class="anchored">
 <i class="far fa-eye"></i> Solution:
 </h2>
-<p>On average, the length of transcriptome sequences is now 2k, which is expected for this sample. The total number of reads has gone up, because the reads have been split into multiple.</p>
+<p>On average, the length of transcript sequences is now 2k, which is expected for this sample. The total number of reads has gone up, because the reads have been split into multiple sections.</p>
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>Whether the Kinnex protocol was used or not, the data will contain primers which need to be remove or it contains barcodes that can identify samples. To remove the adapters and separate samples by barcodes, <code>lima</code> needs to be used in combination with the barcodes used. In this case, primers can be found in <code>isoseq.fasta</code>. Depending on the protocol used, a different fasta file should be used. If in doubt, check with the provider which barcodes have been used.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lima</span> segmented.bam isoseq.fasta segmented.fl.bam <span class="at">--isoseq</span> <span class="at">--peek-guess</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If there are multiple samples, multiple files will be created.</p>
+<p>Whether the Kinnex protocol was used or not, the reads will contain primer sequences which need to be removed before the data can be used for downstream analysis. The primer sequences typically contain sequencing adapters and sequencing barcodes used to identify samples.</p>
+<p>We will use a tool called <code>lima</code> to remove the adapters and separate samples by barcode. The sequencing primers can be found in <code>isoseq.fasta</code> and are specific to this sequencing protocol. If you have your own data, check which primers and barcodes have been used.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> isoseq.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lima</span> segmented.bam isoseq.fasta segmented.fl.bam <span class="at">--isoseq</span> <span class="at">--peek-guess</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the sequencing library contains multiple samples, lima will separate the reads into different file sets. In this case, there is only one sample, and therefore only one set of files is generated.</p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
-Take a look at the files generated. In this case there is only one sample. Which file contains our reads?
+Take a look at the files generated. Which file contains our reads?
 <details>
 <summary>
 Solution
@@ -292,27 +352,32 @@ Solution
 <h2 class="anchored">
 <i class="far fa-eye"></i> Solution:
 </h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>There are a number of files generated, including a report of the results. The reads for our sample are in <code>segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam</code>. The naming of the file reflex the name of the primers or barcodes within the fasta file used during <code>lima</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are a number of files generated, including a report of the results. The reads for our sample are in <code>segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam</code>. The naming of the file reflects the name of the primers or barcodes within the fasta file used during <code>lima</code>.</p>
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>There is one more step to do to make sure the data is ready for analysis. The step to do is a refinement, which will make sure all reads have been properly separated, primers removed and if applicable can check if reads have a polyA tail and remove the tail from the reads.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">isoseq</span> refine segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam isoseq.fasta segmented.refined.bam <span class="at">--require-polya</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The final step before being able to identify or quantify isoforms, the reads needs to be mapped versus the reference genome. For long reads, the best mapper is <a href="https://github.com/lh3/minimap2">minimap2</a>. PacBio has an implementation for it, named <a href="https://github.com/PacificBiosciences/pbmm2">pbmm2</a>, which can be helpful, however in this case we will use the base version of minimap2. For minimap2, the data will need to be in fastq format, and therefore we will need to transform our data to a fastq file.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> bam2fq segmented.refined.bam <span class="kw">|</span> <span class="ex">pigz</span> <span class="at">-c</span> <span class="op">&gt;</span> segmented.refined.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Once the reads are in fastq format, minimap2 can map them to the reference genome.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">minimap2</span> <span class="at">-t</span> 24 <span class="at">-a</span> <span class="at">-x</span> splice:hq <span class="at">-s</span> 40 <span class="at">-G</span> 350k <span class="at">--MD</span> <span class="at">--secondary</span><span class="op">=</span>no GCF_000001405.40_GRCh38.p14_genomic.fna segmented.refined.fastq.gz <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-hb</span> <span class="at">-</span> <span class="kw">|</span> <span class="ex">samtools</span> sort <span class="at">-</span> <span class="op">&gt;</span> refined.mapped.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The final preparation step is to perform a refinement. This makes sure all of the reads have been properly separated, have their primers removed and if applicable can check if reads have a polyA tail and remove this from the reads.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">isoseq</span> refine segmented.fl.IsoSeqX_bc02_5p--IsoSeqX_3p.bam isoseq.fasta segmented.refined.bam <span class="at">--require-polya</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="mapping-to-a-reference-genome" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-to-a-reference-genome">Mapping to a reference genome</h3>
+<p>In order to identify and quantify isoforms, the reads first need to be mapped to a reference genome. For long reads, the best mapper is <a href="https://github.com/lh3/minimap2">minimap2</a>.</p>
+<p>PacBio has an implementation for it, named <a href="https://github.com/PacificBiosciences/pbmm2">pbmm2</a>, which can be helpful, however in this case we will use the base version of minimap2.</p>
+<p>Minimap2 requires reads in fastq format, so we first need to transform our data to a fastq file.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> bam2fq segmented.refined.bam <span class="kw">|</span> <span class="ex">pigz</span> <span class="at">-c</span> <span class="op">&gt;</span> segmented.refined.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We use samtools bam2fq to convert the bam file to fastq format, and pigz to compress the output. Once the reads are in fastq format, minimap2 can map them to the reference genome.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">minimap2</span> <span class="at">-t</span> 5 <span class="at">-a</span> <span class="at">-x</span> splice:hq <span class="at">-s</span> 40 <span class="at">-G</span> 350k <span class="at">--MD</span> <span class="at">--secondary</span><span class="op">=</span>no GCF_000001405.40_GRCh38.p14_genomic.fna segmented.refined.fastq.gz <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-hb</span> <span class="at">-</span> <span class="kw">|</span> <span class="ex">samtools</span> sort <span class="at">-</span> <span class="op">&gt;</span> refined.mapped.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here we provide <code>GCF_000001405.40_GRCh38.p14_genomic.fna</code> as the reference, which is the human genome assembly <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/">GRCh38.p14</a>. The <code>-x</code> parameter tells minimap2 which type of reads we are mapping, in this case <code>splice:hq</code> is used for high quality PacBio spliced reads. You can explore the other input options to minimap2 by typing <code>minimap2 --help</code>. The output of minimap2 is piped to <code>samtools view</code> to convert the output to bam format, and then piped to <code>samtools sort</code> to sort the reads by their position in the genome. The final output is written to <code>refined.mapped.bam</code>.</p>
 <p><em><strong>Note:</strong> This will take some time, for today it can be skipped if it takes too long, data has been prepared for you for next steps</em></p>
-<p>PacBio data is then ready for processing, whether that is identification of new isoforms and genes or quantification of transcripts. We will get into both of these applications in the next session.</p>
+<p>At this point, the PacBio data is ready for downstream processing, whether that is identification of new isoforms and genes or quantification of transcripts. We will get into both of these applications in the next session.</p>
+</section>
 </section>
 <section id="nanopore" class="level2">
 <h2 class="anchored" data-anchor-id="nanopore">NanoPore</h2>
-<p>Before we continue with processing of the data, we will take a look at NanoPore data and how different it is when it comes to preprocessing. Nanopore has two different methods for generating reads for the transcriptome. The first method transforms the RNA into cDNA and uses PCR to add adapters to the reads. The second method takes the transcriptome as is, attaches an adapter by ligation, and is sequenced on a specific RNA flowcell. Both methods have their pros and cons, and in terms of processing these will be slightly different when it comes to mapping the reads, which we will get into later. However the preprocessing is the same between the two methods. The data for NanoPore for both methods will be reported in BAM or FASTQ format. Either of these can be checked with NanoPlot.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--fastq</span> nanopore.fastq.gz <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_nanopore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The results can be viewed <a href="https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_nanopore/NanoPlot-report.html">here</a></p>
+<p>Before we continue processing the data, let’s take a look at the NanoPore sequencing and the different steps involved in pre-processing. Nanopore has two different methods for generating reads for the transcriptome. The first method transforms the RNA into cDNA and uses PCR to add adapters to the reads. The second method takes the RNA as is, attaches an adapter by ligation, and is sequenced on a specific RNA flowcell. Both methods have their pros and cons, and in terms of processing, these differ slightly when it comes to mapping the reads, which we will get into later. However, the pre-processing is the same between the two methods. The data for NanoPore for both methods will be reported in BAM or FASTQ format. Either of these can be checked with NanoPlot.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--fastq</span> nanopore.fastq.gz <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_nanopore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The results can be viewed in your web directory or <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_nanopore/NanoPlot-report.html">here</a></p>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -327,22 +392,20 @@ Solution
 <h2 class="anchored">
 <i class="far fa-eye"></i> Solution:
 </h2>
-<p>There are some difference, before processing the data from Nanopore is already in line with the expected lengths for transcripts. The average quality of reads is lower compared to PacBio. There is more variation in lengths found.</p>
+<p>The Nanopore sequencing is already in line with the expected lengths for transcripts. The average quality of reads is lower compared to PacBio. There is more variation in lengths found.</p>
 </div>
 </details>
 </div>
-<p><br>
-</p>
-<p>Depending on the results and species that is being sequenced, we might want to do a quality filtering. If there are multiple species within the sample, especially if those species are closely related, removing low quality reads can improve the results.</p>
-<p>Often when filtering data, we want to keep highly accurate data. Data that is above a quality of 20 is considered to be of high quality. With Nanopore this is often not reached, so to keep the data of high quality but not lose too much data, the cutoff is often set to the mean read quality. In this case the mean quality is 12, using nanoq we can filter out anything below that threshold.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nanoq</span> <span class="at">--min-qual</span> 12 <span class="at">-i</span> nanopore.fastq.gz <span class="at">-o</span> nanopore.trimmed.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Nanoq after filtering will report how many reads are left after filtering and the general statistics on the resulting reads. This includes the following: number of reads, number of bases, N50, longest read, shortest read, mean length, median length, mean quality and median quality. The data is now ready for mapping.</p>
+<p>Depending on the results and species that is being sequenced, we might want to perform quality filtering. If there are multiple species within the sample, especially if those species are closely related, removing low quality reads can improve the results.</p>
+<p>Sequencing data that is above a Phred quality score of 20 is considered to be high quality. With Nanopore this is often not reached, so to keep the data of high quality but not lose too much data, the cutoff is often set to the mean read quality. In this case the mean quality is 12, using <code>nanoq</code> we can filter out anything below that threshold.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nanoq</span> <span class="at">--min-qual</span> 12 <span class="at">-i</span> nanopore.fastq.gz <span class="at">-o</span> nanopore.trimmed.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nanoq will report how many reads are left after filtering and the general statistics on the resulting reads. This includes the following: Number of reads, number of bases, N50, longest read, shortest read, mean length, median length, mean quality and median quality. The data is now ready for mapping.</p>
 <p>To check the results, run NanoPlot on the trimmed results.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--fastq</span> nanopore.trimmed.fastq.gz <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_trimmed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Check the effect of the trimming <a href="https://bifx-core3.bio.ed.ac.uk/~hdeweer/Training/LRT/NanoPlot_trimmed/NanoPlot-report.html">here</a>.</p>
-<p>Finally, similar to PacBio, the reads need to be mapped against the reference genome. Again we can use minimap2 for that. The command is slightly different.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">minimap2</span> <span class="at">-t</span> 12 <span class="at">-a</span> <span class="at">-x</span> splice <span class="at">-s</span> 40 <span class="at">-G</span> 350k <span class="at">-uf</span> <span class="at">--MD</span> <span class="at">--secondary</span><span class="op">=</span>no GCF_000001405.40_GRCh38.p14_genomic.fna nanopore.trimmed.fastq.gz <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-hb</span> <span class="at">-</span> <span class="kw">|</span> <span class="ex">samtools</span> sort <span class="at">-</span> <span class="op">&gt;</span> nanopore.mapped.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Once mapped, the data is ready to be identified or quantified.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NanoPlot</span> <span class="at">-t</span> 8 <span class="at">--fastq</span> nanopore.trimmed.fastq.gz <span class="at">--plot</span> dots <span class="at">-o</span> NanoPlot_trimmed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>View the report in your web directory or <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_trimmed/NanoPlot-report.html">here</a>.</p>
+<p>Finally, similar to PacBio, the reads need to be mapped against the reference genome. Again we can use minimap2, but the command is slightly different. In this case, we are mapping RNA reads, so we use <code>splice</code>. The <code>-uf</code> parameter tells minimap2 that the reads are from a direct RNA sequencing experiment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">minimap2</span> <span class="at">-t</span> 5 <span class="at">-a</span> <span class="at">-x</span> splice <span class="at">-s</span> 40 <span class="at">-G</span> 350k <span class="at">-uf</span> <span class="at">--MD</span> <span class="at">--secondary</span><span class="op">=</span>no GCF_000001405.40_GRCh38.p14_genomic.fna nanopore.trimmed.fastq.gz <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-hb</span> <span class="at">-</span> <span class="kw">|</span> <span class="ex">samtools</span> sort <span class="at">-</span> <span class="op">&gt;</span> nanopore.mapped.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Once mapped, the data is ready for transcript identification and quantification.</p>
 
 
 </section>
