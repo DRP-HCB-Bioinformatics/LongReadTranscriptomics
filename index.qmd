@@ -4,7 +4,7 @@ format: html
 syntax-highlighting: ayu
 ---
 
-Welcome to our *Long Read Transcriptomics* course.
+Welcome to our *Long Read Transcriptomics* course. This course is hosted by the Bioinformatics Core at the [DRP-HCB](https://biology.ed.ac.uk/drp).
 
 During this course you will learn to:
 
@@ -13,6 +13,9 @@ During this course you will learn to:
 -   Identify new genes and isoforms
 -   Quantify expression of genes and isoforms
 
-This course is hosted by the Bioinformatics Core at the [DRP-HCB](https://biology.ed.ac.uk/drp).
+During this course, we will work through the following workflow and explain the process, different steps to take depending on the data that we have, and talk about things to watch out.
 
-### Course Setup
+![Summary of workflow](images/Summary.png){width="500"}
+
+
+
