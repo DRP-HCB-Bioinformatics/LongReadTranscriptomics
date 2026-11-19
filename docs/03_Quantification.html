@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -75,14 +78,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -174,6 +177,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Transcript Quantification</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -216,6 +225,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="bambu">Bambu</h2>
 <p>In some cases, we specifically want to get counts per gene for a version of an annotation, without looking for new isoforms or transcripts. Though Bambu is capable of also identifying new isoforms and transcripts, it is mainly used with organisms that already have a high quality annotation. To able to do this, we again need the mapped reads, a genome sequence and a genome annotation.</p>
 <p>Bambu is based within R, a popular programming language used in bioinformatics. Bambu requires one of the latest versions of R, which we have installed for you on the server.</p>
+<div class="objectives">
+<h2 class="anchored">
+<i class="fas fa-pencil-alt"></i> Disclaimer:
+</h2>
+<p>For this course, no prior experience with R or programming is required. You will be able to follow along by simply copying and pasting the commands provided into R. We will focus on understanding what the commands do and how to interpret the results, rather than on learning how to write code from scratch.</p>
+<p>That said, if you are interested in working with transcriptomics data, learning R is worthwhile. R is one of the most widely used programming languages for analysing biological data, and it is particularly useful for data analysis and data visualization.</p>
+<p>If you are interested in getting started with R, we would also recommend taking a look at RStudio. RStudio provides a user-friendly graphical interface for working with R. It makes programming much more accessible by allowing you to write and organize scripts, run individual commands, view plots, and inspect your data, all within one interface.</p>
+<p>Unfortunately, we will not be using RStudio during this course. We are running a specific version of R on a remote server, and the RStudio interface is not currently available for this version of R. Instead, we will work directly with R and use the commands provided throughout the course. This is perfectly sufficient for following the exercises and completing the analyses covered in the course. Click <a href="https://rstudio-core3.bio.ed.ac.uk/">here</a> to take a look at the Rstudio interface.</p>
+<p>If you are interested in learning R and would like to join a course that will teach you how to use R from the very beginning, please contact the Bioinformatics Core at the <a href="https://biology.ed.ac.uk/drp">DRP-HCB</a>.</p>
+</div>
 <p>R runs from your current working directory, meaning it has access to the data within that folder and will write any output files to that folder.</p>
 <p>Start R by running the following command in the terminal.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/library/training/LRT_Tool/R-4.6.0/bin/R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -276,7 +295,13 @@ Solution
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pdf</span><span class="er">(</span><span class="st">"UGP2.pdf"</span><span class="kw">)</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plotBambu</span><span class="er">(</span><span class="ex">se,</span> type = <span class="st">"annotation"</span>, gene_id = <span class="st">"UGP2"</span><span class="kw">)</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The plot is saved to the current working directory. View the plot in your web directory or view the prepared version <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/UGP2.pdf">here</a>.</p>
+<p>The plot is saved to the current working directory. View the plot in your web directory or view the prepared version below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/UGP2.png" class="img-fluid figure-img"></p>
+<figcaption>Bambu visualisation of UGP2 gene</figcaption>
+</figure>
+</div>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -305,7 +330,7 @@ Solution
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
 <p>Run <code>colData(seall)</code> in R.</p>
-What information is currently available for the samples?
+<p>What information is currently available for the samples?</p>
 <details>
 <summary>
 Solution
@@ -325,7 +350,13 @@ Solution
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pdf</span><span class="er">(</span><span class="st">"pcaseall.pdf"</span><span class="kw">)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plotBambu</span><span class="er">(</span><span class="ex">seall,</span> type=<span class="st">"pca"</span>, <span class="st">"seqtype"</span><span class="kw">)</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>View the plot in your web folder or view a prepared version <a href="https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/pcaseall.pdf">here</a>.</p>
+<p>View the plot in your web folder or view a prepared version below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pcaseall.png" class="img-fluid figure-img"></p>
+<figcaption>PCA plot of all samples from different sequencing types</figcaption>
+</figure>
+</div>
 <div class="challenge">
 <h2 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:

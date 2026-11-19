@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -40,14 +43,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2b91fda96fc4217d309e4768f8eb8023.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b00097fbe245c0658e8e1284714b1aa3.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2b91fda96fc4217d309e4768f8eb8023.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-713b0136666c1ca4047413a70816f99a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d55ad538553833994e65ea0dc4f9e74e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-713b0136666c1ca4047413a70816f99a.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-91395b8b7253de3c6d7cc4b17dd32cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-91395b8b7253de3c6d7cc4b17dd32cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-91395b8b7253de3c6d7cc4b17dd32cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-96db90ed46136dc576a4b74167903618.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-96db90ed46136dc576a4b74167903618.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-96db90ed46136dc576a4b74167903618.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -139,6 +142,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Transcript Quantification</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -149,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-setup" id="toc-course-setup" class="nav-link active" data-scroll-target="#course-setup">Course Setup</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link active" data-scroll-target="#tools">Tools</a></li>
   </ul>
 </nav>
     </div>
@@ -175,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome to our <em>Long Read Transcriptomics</em> course.</p>
+<p>Welcome to our <em>Long Read Transcriptomics</em> course. This course is hosted by the Bioinformatics Core at the <a href="https://biology.ed.ac.uk/drp">DRP-HCB</a>.</p>
 <p>During this course you will learn to:</p>
 <ul>
 <li>Perform quality control checks on long read transcriptomics data</li>
@@ -183,9 +192,26 @@ ul.task-list li input[type="checkbox"] {
 <li>Identify new genes and isoforms</li>
 <li>Quantify expression of genes and isoforms</li>
 </ul>
-<p>This course is hosted by the Bioinformatics Core at the <a href="https://biology.ed.ac.uk/drp">DRP-HCB</a>.</p>
-<section id="course-setup" class="level3">
-<h3 class="anchored" data-anchor-id="course-setup">Course Setup</h3>
+<p>During this course, we will work through the following workflow and explain the process, different steps to take depending on the data that we have, and talk about things to watch out.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Summary.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Summary of workflow</figcaption>
+</figure>
+</div>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">Tools</h2>
+<p>For this course several tools will be needed. If you have access to the DRP-HCB bioinformatics server, please use these as tools are already installed. A list of tools needed can be found below, if you want to install them on your local machine or server, you might have to install them over several conda environments.</p>
+<ul>
+<li><a href="https://github.com/wdecoster/nanoplot">NanoPlot</a></li>
+<li><a href="https://github.com/esteinig/nanoq">nanoq</a></li>
+<li><a href="https://skera.how/">skera</a></li>
+<li><a href="https://lima.how/">lima</a></li>
+<li><a href="https://isoseq.how/">isoseq</a></li>
+<li><a href="https://github.com/lh3/minimap2">minimap2</a></li>
+<li><a href="https://flair.readthedocs.io/en/latest/modules.html">flair</a></li>
+<li><a href="https://www.r-project.org/">R</a> (at least version 4.6) with the <a href="https://bioconductor.org/packages/release/bioc/html/bambu.html">bambu</a> package installed</li>
+</ul>
 
 
 </section>
