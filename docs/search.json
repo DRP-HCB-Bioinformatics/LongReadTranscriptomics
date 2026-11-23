@@ -24,7 +24,7 @@
     "href": "index.html",
     "title": "Long Read Transcriptomics",
     "section": "",
-    "text": "Welcome to our Long Read Transcriptomics course. This course is hosted by the Bioinformatics Core at the DRP-HCB.\nDuring this course you will learn to:\nDuring this course, we will work through the following workflow and explain the process, different steps to take depending on the data that we have, and talk about things to watch out.",
+    "text": "Welcome to our Long Read Transcriptomics course. This course is hosted by the Bioinformatics Core at the DRP-HCB.\nDuring this course you will learn to:\n\nPerform quality control checks on long read transcriptomics data\nMap long reads reads to a reference genome\nIdentify new genes and isoforms\nQuantify expression of genes and isoforms\n\nDuring this course, we will work through the following workflow and explain the process, different steps to take depending on the data that we have, and talk about things to watch out.\n\n\n\nSummary of workflow\n\n\n\nCourse Setup\nIf you are using the DRP-HCB Bioinformatics server for this course then all of the data and software is already installed. If you are working through this course from a different Linux computer or server, please make sure the following tools are installed:\n\n\n Required software\n\nIf you use Conda to install tools on your local machine or server, you may have to install over several Conda environments to avoid dependency clashes.\n\nNanoPlot\nnanoq\nskera\nlima\nisoseq\nminimap2\nflair\nR (at least version 4.6) with the bambu package installed",
     "crumbs": [
       "Home"
     ]

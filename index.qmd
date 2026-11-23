@@ -17,10 +17,14 @@ During this course, we will work through the following workflow and explain the 
 
 ![Summary of workflow](images/Summary.png){width="500"}
 
+### Course Setup
 
-## Tools
+If you are using the DRP-HCB Bioinformatics server for this course then all of the data and software is already installed. If you are working through this course from a different Linux computer or server, please make sure the following tools are installed:
 
-For this course several tools will be needed. If you have access to the DRP-HCB bioinformatics server, please use these as tools are already installed. A list of tools needed can be found below, if you want to install them on your local machine or server, you might have to install them over several conda environments.
+::: resources
+<h2><i class="fas fa-save"></i> Required software</h2>
+
+If you use Conda to install tools on your local machine or server, you may have to install over several Conda environments to avoid dependency clashes.
 
 - [NanoPlot](https://github.com/wdecoster/nanoplot)
 - [nanoq](https://github.com/esteinig/nanoq)
@@ -30,3 +34,5 @@ For this course several tools will be needed. If you have access to the DRP-HCB 
 - [minimap2](https://github.com/lh3/minimap2)
 - [flair](https://flair.readthedocs.io/en/latest/modules.html)
 - [R](https://www.r-project.org/) (at least version 4.6) with the [bambu](https://bioconductor.org/packages/release/bioc/html/bambu.html) package installed
+
+:::
