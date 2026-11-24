@@ -87,7 +87,9 @@ less pacbio_manifest.txt
 The file contains information on the samples to merge and the corresponding flair output files from the previous step. The combine step uses these files to look at how reads are mapped against the reference genome, the sequences of the transcripts and the annotation they align to on the reference genome. Once everything is in place, the files can be merged.
 
 ``` bash        
-flair combine -c -m pacbio_manifest.txt -o pacbio_merge
+flair combine -c -m pacbio_manifest.txt -o ~/long_read_transcriptomics/LRT/pacbio_merge
+
+cd ..
 ```
 
 Take a look at the files generated. 

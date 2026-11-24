@@ -116,7 +116,7 @@ Because PacBio reads are long, sequencing short transcripts can be inefficient. 
 ``` bash
 cd LRT
 
-NanoPlot -t 8 --ubam hifi_reads.bcM0002_200K.bam --plot dots -o NanoPlot_hifi
+NanoPlot -t 8 --ubam hifi_reads.bcM0002_200K.bam --plots dot -o NanoPlot_hifi
 ```
 
 Navigate to your web directory to view the results. Alternatively, you can look at this [pre-generated Nanoplot report](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_hifi/NanoPlot-report.html).
@@ -151,7 +151,7 @@ skera split hifi_reads.bcM0002_200K.bam mas8.fasta segmented.bam
 Run NanoPlot again to see what effect this has on the reads.
 
 ``` bash
-NanoPlot -t 8 --ubam segmented.bam --plot dots -o NanoPlot_segmented
+NanoPlot -t 8 --ubam segmented.bam --plots dot -o NanoPlot_segmented
 ```
 
 View the results in your web directory or [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_segmented/NanoPlot-report.html). 
@@ -242,7 +242,7 @@ At this point, the PacBio data is ready for downstream processing, whether that 
 Before we continue processing the data, let's take a look at the NanoPore sequencing and the different steps involved in pre-processing. Nanopore has two different methods for generating reads for the transcriptome. The first method transforms the RNA into cDNA and uses PCR to add adapters to the reads. The second method takes the RNA as is, attaches an adapter by ligation, and is sequenced on a specific RNA flowcell. Both methods have their pros and cons, and in terms of processing, these differ slightly when it comes to mapping the reads, which we will get into later. However, the pre-processing is the same between the two methods. The data for NanoPore for both methods will be reported in BAM or FASTQ format. Either of these can be checked with NanoPlot.
 
 ``` bash
-NanoPlot -t 8 --fastq nanopore.fastq.gz --plot dots -o NanoPlot_nanopore
+NanoPlot -t 8 --fastq nanopore.fastq.gz --plots dot -o NanoPlot_nanopore
 ```
 
 The results can be viewed in your web directory or  [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_nanopore/NanoPlot-report.html).
@@ -279,7 +279,7 @@ Nanoq will report how many reads are left after filtering and the general statis
 To check the results, run NanoPlot on the trimmed results. 
 
 ``` bash
-NanoPlot -t 8 --fastq nanopore.trimmed.fastq.gz --plot dots -o NanoPlot_trimmed
+NanoPlot -t 8 --fastq nanopore.trimmed.fastq.gz --plots dot -o NanoPlot_trimmed
 ```
 
 View the report in your web directory or [here](https://bifx-core3.bio.ed.ac.uk/training/ASD/04_LRT/results/NanoPlot_trimmed/NanoPlot-report.html).

@@ -33,7 +33,7 @@ R runs from your current working directory, meaning it has access to the data wi
 Start R by running the following command in the terminal.
 
 ``` bash
-/library/training/LRT_Tool/R-4.6.0/bin/R
+/library/training/ASD/LRT_Tool/R-4.6.0/bin/R
 ```
 
 The Bambu package needs to be installed within R. ***Note**: You won't need to run this when working on the server.*
@@ -51,7 +51,7 @@ library(bambu)
 The command below lists all of the input files for bambu by looking for files ending with `pacbio.chromosome2.bam`. Multiple samples can be loaded at the same time and the larger the number of samples, the longer the process will take. Running bambu on a server is advised to speed up this process.
 
 ``` bash
-files <- list.files(path="./", pattern="pacbio.chromosome2.bam$")
+  files <- list.files(path="./", pattern="pacbio.chromosome2.bam$")
 ```
 
 :::: challenge
@@ -79,7 +79,7 @@ files
 We can run bambu with a single command. Bambu first prepares the annotation for efficient access. If you use the genome often, the annotation can be prepared beforehand and saved into an R object to save time.
 
 ``` bash
-se <- bambu(reads = files, annotations = "../GCF_000001405.40_GRCh38.p14_genomic.gtf", genome = "../GCF_000001405.40_GRCh38.p14_genomic.fna", ncore = 5, discovery = FALSE)
+se <- bambu(reads = files, annotations = "~/long_read_transcriptomics/LRT/GCF_000001405.40_GRCh38.p14_genomic.gtf", genome = "~/long_read_transcriptomics/LRT/GCF_000001405.40_GRCh38.p14_genomic.fna", ncore = 5, discovery = FALSE)
 ```
 
 ***Note**: This will take several minutes.*
@@ -87,7 +87,7 @@ se <- bambu(reads = files, annotations = "../GCF_000001405.40_GRCh38.p14_genomic
 Once bambu has finished, we can write the output to a folder named `bambu`.
 
 ``` bash
-writeBambuOutput(se, path = "./bambu/")
+writeBambuOutput(se, path = "~/long_read_transcriptomics/LRT/bambu/")
 ```
 
 Open up a **new terminal** to take a look at the resulting files. We want to keep the R session running to be able to continue working with the data later on.
@@ -121,7 +121,7 @@ wc -l counts_gene.txt
 Bambu has the functionality to visualise genes, the different transcripts found for a gene, and the per sample read counts for each transcript. This can help you to visualise specific transcripts that are being used differently between sample groups. Because we are working on the command line, we cannot directly see the plots, however we can easily save them to a pdf file.
 
 ``` bash
-pdf("UGP2.pdf")
+pdf("~/public_html/long_read_transcriptomics/LRT/UGP2.pdf")
 plotBambu(se, type = "annotation", gene_id = "UGP2")
 dev.off()
 ```
@@ -189,7 +189,7 @@ colData(seall)$seqtype <- c("direct", "nanopore", "pacbio","direct", "nanopore",
 Now, let's create a pca plot.
 
 ``` bash
-pdf("pcaseall.pdf")
+pdf("~/long_read_transcriptomics/LRT/pcaseall.pdf")
 plotBambu(seall, type="pca", "seqtype")
 dev.off()
 ```
